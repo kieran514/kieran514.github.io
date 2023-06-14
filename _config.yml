@@ -7,11 +7,11 @@
 
 # Site Settings
 locale                   : "en-UK"
-title                    : "Mr"
+title                    : "Kieran Saunders"
 title_separator          : "-"
 name                     : &name "Kieran Saunders"
-description              : &description "personal description"
-url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+description              : &description "Computer Vision Engineer"
+url                      : https://kieran514.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "kieran514.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
@@ -82,13 +82,11 @@ analytics:
 author:
   name             : "Kieran Saunders"
   avatar           : "profile.png"
-  bio              : "Your biography for the left-hand sidebar"
-  location         : "Location"
-  employer         :
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  googlescholar    : "http://yourfullgooglescholarurl.com"
-  email            :
-  researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
+  bio              : "Computer Vision Engineer "
+  location         : "Birmingham"
+  employer         : "Aston University"
+  googlescholar    : "https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en&oi=sra"
+  email            : "190229315@aston.ac.uk
   uri              :
   bitbucket        :
   codepen          :
@@ -96,7 +94,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "academicpages"
+  github           : "https://github.com/kieran514"
   google_plus      :
   keybase          :
   instagram        :
