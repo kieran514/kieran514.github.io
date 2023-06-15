@@ -1,15 +1,6 @@
 ---
 title: "Robust-Depth"
-excerpt: "Self-supervised monocular depth estimation has
-been a subject of intense study in recent years, because of
-its applications in robotics and autonomous driving. Much of
-the recent work focuses on improving depth estimation by
-increasing architecture complexity. This paper shows that state-of-the-art performance can be achieved by improving the
-learning process rather than increasing model complexity. More
-specifically, we propose (i) disregarding small potentially dynamic objects when training, and (ii) employing an appearance-based approach to separately estimate object pose for truly dynamic objects. We demonstrate that these simplifications reduce
-GPU memory usage by 29% and results in qualitatively and
-quantitatively improved depth maps. The code is available at
-https://github.com/kieran514/Dyna-DM <br/><img src='/images/Fig_1.png'>"
+excerpt: "Current, self-supervised depth estimation architectures rely on clear and sunny weather scenes to train deep neural networks. However, in many locations, this assumption is too strong. For example in the UK (2021), 149 days consisted of rain. For these architectures to be effective in real-world applications, we must create models that can generalise to all weather conditions, times of the day and image qualities. Using a combination of computer graphics and generative models, one can augment existing sunny-weather data in a variety of ways that simulate adverse weather effects. While it is tempting to use such data augmentations for self-supervised depth, in the past this was shown to degrade performance instead of improving it. In this paper, we put forward a method that uses augmentations to remedy this problem. By exploiting the correspondence between unaugmented and augmented data we introduce a pseudo-supervised loss for both depth and pose estimation. This brings back some of the benefits of supervised learning while still not requiring any labels. We also make a series of practical recommendations which collectively offer a reliable, efficient framework for weather-related augmentation of self-supervised depth from monocular video. We present extensive testing to show that our method, Robust-Depth, achieves SotA performance on the KITTI dataset while significantly surpassing SotA on challenging, adverse condition data such as DrivingStereo, Foggy CityScape and NuScenes-Night. <br/><img src='/images/Figure_1_variants-Page-5.jpeg'>"
 collection: portfolio
 ---
 
