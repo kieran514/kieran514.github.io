@@ -2,7 +2,7 @@
 title: "Robust-Depth"
 collection: publications
 permalink: /publication/Robust-Depth
-excerpt: 'Our work makes self-supervised monocular depth estimation much more robust to changes in weather, time of day and image degradation. 
+excerpt: 'Our work makes self-supervised monocular depth estimation much more robust to changes in weather, time of day and image degradation.'
 date: 10-10-2023
 venue: 'ICCV'
 paperurl: 'http://kieran514.github.io/files/Robust-Depth.pdf'
