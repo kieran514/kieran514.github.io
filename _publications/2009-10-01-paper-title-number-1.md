@@ -1,5 +1,5 @@
 ---
-title: "Robust-Depth"
+title: "Self-supervised Monocular Depth Estimation: Let's Talk About The Weather (Robust-Depth)"
 collection: publications
 permalink: /publication/Robust-Depth
 excerpt: 'Our work makes self-supervised monocular depth estimation much more robust to changes in weather, time of day and image degradation.'
