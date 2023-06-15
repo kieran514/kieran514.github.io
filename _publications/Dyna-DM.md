@@ -12,7 +12,7 @@ citation: 'K. Saunders, G. Vogiatzis and L. J. Manso, "Dyna-DM: Dynamic Object-a
 
 [Download paper here](http://kieran514.github.io/files/Dyna-DM.pdf)
 
-Recommended citation: 
+BibTex citation: 
 =====
 @INPROCEEDINGS{10129564,
   author={Saunders, Kieran and Vogiatzis, George and Manso, Luis J.},
