@@ -10,8 +10,6 @@ paperurl: 'https://kieran514.github.io/files/Dyna-DM.pdf'
 citation: 'K. Saunders, G. Vogiatzis and L. J. Manso, "Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps," 2023 IEEE International Conference on Autonomous Robot Systems and Competitions (ICARSC), Tomar, Portugal, 2023, pp. 10-16, doi: 10.1109/ICARSC58346.2023.10129564.'
 ---
 
-[Download paper here](http://kieran514.github.io/files/Dyna-DM.pdf)
-
 BibTex citation: 
 =====
 @INPROCEEDINGS{10129564,
