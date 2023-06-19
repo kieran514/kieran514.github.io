@@ -17,4 +17,4 @@ I have obtained a mathematics degree from Aston University and have a strong bac
 
 ### Updates
 
-*March 2023:* Paper accepted at ICARSC (Dyna-DM)
+**March 2023:** Paper accepted at ICARSC (Dyna-DM)
