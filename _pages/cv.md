@@ -17,7 +17,7 @@ Education
 Work experience
 ======
 * Winter 2020-2021: Internship
-  * AITalents, TexhQuartier - Remote
+  * AITalents, TechQuartier - Remote
   * 9-week professional course for applied deep learning
   * Analysis of glass fullness using TensorFlow 
   * Company: Lampix
