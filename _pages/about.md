@@ -11,9 +11,9 @@ redirect_from:
 
 ### Background
 
-Hello, I am a Researcher in the Computer Science department at Aston University. My research focuses on self-supervised monocular depth estimation and pose estimation. We develop state-of-the-art depth robustness at different times of day, weather conditions, and image degradations. The goal is to create practical and lightweight models that can be used to replace expensive sensors for a variety of tasks. 
+Hello, I am a researcher in the Computer Science department at Aston University. My research primarily centers on self-supervised monocular depth estimation and pose estimation. Our team works on developing state-of-the-art depth robustness under various conditions, including different times of day, weather conditions, and image degradations. The ultimate objective is to design practical and lightweight models capable of replacing costly sensors for a wide range of applications.
 
-I have obtained a mathematics degree from Aston University and have a strong background in computer science.  
+I hold a degree in Mathematics from Aston University, and my academic background in computer science is strong.
 
 ### Updates
 
