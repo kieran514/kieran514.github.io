@@ -7,11 +7,9 @@ author_profile: true
 
 
 ### Email
-[firstname].[lastname]16 [at] imperial.ac.uk
+190229315@aston.ac.uk
 
 ### Address
-Office 617 \
-Huxley Building \
-180 Queen's Gate, South Kensington \
-London SW7 2AZ \
-UK
+Aston St
+Birmingham 
+B4 7ET
