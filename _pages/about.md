@@ -17,8 +17,8 @@ I am thrilled to share that I have two papers submitted, one of which has been a
 
 ## Education 
 
-- PhD in Computer Science, 2022-2025, <span class="grey">Aston University</span> \
-- BSc in Mathematics, 2019-2022, <span class="grey">Aston University</span>
+- PhD in Computer Science, 2022-2025, <span class="blue">Aston University</span>
+- BSc in Mathematics, 2019-2022, <span class="blue">Aston University</span>
 
 ## Teaching
 I am/was a Teaching Assistant for the following courses:
