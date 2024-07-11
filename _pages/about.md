@@ -35,4 +35,4 @@ I am/was a Teaching Assistant for the following courses:
 - Attended France, Paris to show our work as a poster presentation
 
 **March 2023:** Paper accepted at ICARSC2023 (Dyna-DM)
-- Presented our work as an oral preentation in Portugal, Tomar 
+- Presented our work as an oral presentation in Portugal, Tomar 
