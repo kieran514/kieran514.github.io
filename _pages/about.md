@@ -1,6 +1,5 @@
 ---
 permalink: /
-title: ""
 excerpt: "About me"
 author_profile: true
 redirect_from: 
@@ -22,9 +21,9 @@ I am thrilled to share that I have two papers submitted, one of which has been a
 
 ## Teaching
 I am/was a Teaching Assistant for the following courses:
-Image and Video Processing <span class="red">CS3IVP</span> 
-Techniques for Data Analysis (Data Mining) <span class="red">CS3DM</span> 
-Machine Learning <span class="red">CS4730_P1_A</span> 
+-Image and Video Processing <span class="red">CS3IVP</span> 
+-Techniques for Data Analysis (Data Mining) <span class="red">CS3DM</span> 
+-Machine Learning <span class="red">CS4730_P1_A</span> 
 
 ## News
 
