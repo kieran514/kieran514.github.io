@@ -83,12 +83,12 @@ analytics:
 author:
   name             : "Kieran Saunders"
   avatar           : "profile.png"
-  bio              : "PhD student studying Self-supervised Monocular Depth Estimation"
-  location         : "Aston University"
+  bio              : "PhD student of Computer Vision at Aston University"
+  location         : "Birmingham, UK"
   employer         :
   pubmed           :
   googlescholar    : "https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en&oi=ao"
-  email            :  "190229315@aston.ac.uk"
+  email            :  
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
@@ -110,7 +110,7 @@ author:
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : 
+  twitter          : "Kieran___S"
   vine             :
   weibo            :
   xing             :
