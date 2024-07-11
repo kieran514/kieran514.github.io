@@ -9,18 +9,16 @@ redirect_from:
 ---
 
 
-### Background
+## Background
 
-Passionate Computer Vision Engineer with a deep expertise in Self-Supervised Monocular Depth Estimation and 3D Reconstruction. Proud recipient of the Department Prize in Mathematics and the Final Year Project Prize at Aston University for groundbreaking work in monocular depth estimation. Honored to have an accepted paper at the prestigious ICCV conference. Committed to transforming 2D images into insightful 3D perspectives.
+As a passionate Computer Vision Engineer, my journey has been driven by a deep fascination with Self-Supervised Monocular Depth Estimation and 3D Reconstruction. My dedication and hard work have been recognized with the Department Prize in Mathematics and the Final Year Project Prize at Aston University, where I made significant strides in monocular depth estimation.
 
-I hold a degree in Mathematics from Aston University, and my academic background in computer science is strong.
-
-
+I am thrilled to share that I have two papers submitted, one of which has been accepted at the prestigious ICCV conference, a testament to my commitment and expertise in the field. I am excited to continue pushing the boundaries of transforming 2D images into insightful 3D perspectives, blending innovation with rigorous academic research.
 
 ## Education 
-:mortar_board: PhD in Modern Statistics and Statistical Machine Learning, 2020-2024, <span class="grey">Imperial College London</span> \
-:mortar_board: MASt (Part III) in Mathematical Statistics, 2019-2020, <span class="grey">University of Cambridge</span> \
-:mortar_board: BSc in Mathematics with Statistics, 2016-2019, <span class="grey">Imperial College London</span>
+
+- PhD in Computer Science, 2022-2025, <span class="grey">Aston University</span> \
+- BSc in Mathematics, 2019-2022, <span class="grey">Aston University</span>
 
 ## Teaching
 I am/was a Teaching Assistant for the following courses:
