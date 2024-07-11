@@ -4,8 +4,6 @@ permalink: /Contact/
 author_profile: true
 ---
 
-
-
 ### Email
 190229315@aston.ac.uk
 
