@@ -1,6 +1,6 @@
 ---
 permalink: /Bio/
-title: "Bio"
+title: "About Me"
 author_profile: true
 redirect_from: 
   - /md/
