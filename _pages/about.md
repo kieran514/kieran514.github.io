@@ -6,6 +6,8 @@ author_profile: true
 redirect_from: 
   - /about/
   - /about.html
+  page_color: blue
+
 ---
 
 
@@ -45,3 +47,4 @@ I am/was a Teaching Assistant for the following courses:
 - [09/2022] I finished my internship at [Meta](https://research.facebook.com/), where I worked on multi-task active learning methods for e-commerce.
 
 - [01/2022] Our paper [Grassmann Stein Variational Gradient Descent](https://proceedings.mlr.press/v151/liu22a.html) has been accepted by AISTATS 2022.
+   
