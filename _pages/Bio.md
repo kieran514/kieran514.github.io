@@ -9,7 +9,7 @@ redirect_from:
 
 ## Bio:
 
-Kieran Saunders is a second-year PhD student at Aston University, where he is currently focusing on his thesis titled "Self-supervised Monocular Depth Estimation". With a solid background in mathematics obtained from his BSc in Mathematics at Aston University, he has actively immersed himself in the field of computer vision for the past five years. Notably, he has already published two papers, one at ICARSC'23 and another at ICCV'23. His primary interests revolve around depth estimation from a single camera and exploring the potential applications of this technology in various domains, including self-driving vehicles, virtual reality headsets, and underwater navigation.
+Kieran Saunders is a second-year PhD student at Aston University, currently focusing on his thesis titled "Self-supervised Monocular Depth Estimation." With a solid background in mathematics, obtained from his BSc in Mathematics at Aston University, he has been actively engaged in the field of computer vision for the past five years. Notably, he has already published three papers: one at ICARSC'23, another at ICCV'23, and one at BMVC'24. His primary interests revolve around depth estimation from a single camera and exploring the potential applications of this technology in various domains, including self-driving vehicles, virtual reality headsets, and underwater navigation.
 
 ## Abstract:
 
