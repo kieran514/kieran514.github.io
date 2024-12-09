@@ -13,7 +13,7 @@ redirect_from:
 
 As a passionate Computer Vision Engineer, my journey has been driven by a deep fascination with Self-Supervised Monocular Depth Estimation and 3D Reconstruction. My dedication and hard work have been recognized with the Department Prize in Mathematics and the Final Year Project Prize at Aston University, where I made significant strides in monocular depth estimation.
 
-I am thrilled to share that I have two papers submitted, one of which has been accepted at the prestigious ICCV conference, a testament to my commitment and expertise in the field. I am excited to continue pushing the boundaries of transforming 2D images into insightful 3D perspectives, blending innovation with rigorous academic research.
+I am thrilled to share that I have three papers submitted, one of which has been accepted at the prestigious ICCV conference, a testament to my commitment and expertise in the field. Additionally, I have a paper accepted at BMVC, further demonstrating my ongoing contributions to the field. I am excited to continue pushing the boundaries of transforming 2D images into insightful 3D perspectives, blending innovation with rigorous academic research.
 
 ## Education 
 
@@ -30,6 +30,9 @@ I am/was a Teaching Assistant for the following courses:
 - Machine Learning (CS4730_P1_A)
 
 ## News
+
+**July 2023:** Paper accepted at BMVC2024 (BaseBoostDepth)
+- Attended Scotland, Glasgow to show our work as a poster presentation
 
 **July 2023:** Paper accepted at ICCV2023 (Robust-Depth)
 - Attended France, Paris to show our work as a poster presentation
