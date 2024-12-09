@@ -31,7 +31,7 @@ I am/was a Teaching Assistant for the following courses:
 
 ## News
 
-**July 2023:** Paper accepted at BMVC2024 (BaseBoostDepth)
+**November 2024:** Paper accepted at BMVC2024 (BaseBoostDepth)
 - Attended Scotland, Glasgow to show our work as a poster presentation
 
 **July 2023:** Paper accepted at ICCV2023 (Robust-Depth)
