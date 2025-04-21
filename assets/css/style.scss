@@ -1,0 +1,77 @@
+--
+# Front matter tells Jekyll to process this file
+---
+// Import partials from `minima` theme (optional, if you want a base)
+// @import "minima"; // Uncomment if using minima theme base
+// Or define everything yourself:
+// 1. Variables (Magma Inspired + Neutrals)
+$font-family-sans-serif: 'Lato', sans-serif;
+$font-family-headings: 'Montserrat', sans-serif;
+// Magma Color Palette (Approximate) - Use https://coolors.co or similar to refine
+$magma-dark: #0d0820; // Very dark purple/black
+$magma-mid1: #440c55; // Deep purple
+$magma-mid2: #852860; // Magenta/Purple
+$magma-mid3: #bd3f50; // Reddish
+$magma-accent1: #ed7431; // Orange
+$magma-accent2: #f9cb35; // Yellowish Orange
+$magma-light: #fcffa4; // Light yellow (use sparingly)
+$text-color: #e0e0e0; // Light grey for text on dark background
+$text-muted: #a0a0a0;
+$background-color: $magma-dark;
+$link-color: $magma-accent1;
+$link-hover-color: $magma-accent2;
+$button-bg: $magma-mid2;
+$button-hover-bg: $magma-mid3;
+$border-color: lighten($magma-dark, 10%);
+// Subtle Japanese Pattern (Example using Asanoha - needs an SVG/PNG)
+// $japan-pattern-url: '/assets/images/asanoha-pattern.svg'; // Store pattern here
+// 2. Basic Resets & Body Styling
+* { box-sizing: border-box; margin: 0; padding: 0;
+}
+body { font-family: $font-family-sans-serif; background-color: $background-color; color: $text-color; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+// 3. Layout Containers
+.wrapper { max-width: 960px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px;
+}
+// 4. Header & Footer
+.site-header { background-color: lighten($background-color, 5%); border-bottom: 1px solid $border-color; padding: 15px 0; .site-title { font-family: $font-family-headings; font-size: 1.5em; color: $text-color; text-decoration: none; font-weight: 600; } .site-nav { float: right; // Basic nav positioning line-height: 56px; // Adjust to vertically align with title .page-link { color: $text-muted; text-decoration: none; margin-left: 20px; transition: color 0.3s ease; &:hover { color: $link-color; text-decoration: underline; } } // Add styles for mobile nav trigger if needed .nav-trigger { display: none; } // Hide checkbox .menu-icon { display: none; } // Hide hamburger icon by default @media screen and (max-width: 600px) { // Basic mobile nav toggle .trigger { display: none; position: absolute; /* Full styling needed */ } .menu-icon { display: block; /* Show icon */} // Add styles to show .trigger when #nav-trigger is checked } }
+}
+.site-footer { background-color: lighten($background-color, 3%); border-top: 1px solid $border-color; padding: 30px 0; font-size: 0.9em; color: $text-muted; a { color: $text-muted; &:hover{ color: $link-color; }} .footer-col-wrapper { display: flex; justify-content: space-between; } // Basic columns .footer-col { flex: 1; padding: 0 10px; }
+}
+// 5. Typography & Content Styling
+h1, h2, h3, h4, h5, h6 { font-family: $font-family-headings; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.8em; color: $link-color; // Use accent for headings
+}
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.4em; }
+p { margin-bottom: 1em;
+}
+a { color: $link-color; text-decoration: none; transition: color 0.3s ease; &:hover { color: $link-hover-color; text-decoration: underline; }
+}
+strong { font-weight: 700; color: $magma-accent2; // Highlight strong text
+}
+// Code blocks, blockquotes etc. would need styling too
+// Special formatting from Markdown
+.blue { color: #56a1d8; } // Keep your blue class
+.pub-title { font-weight: bold; color: $magma-accent2; } // Style publication titles
+// Buttons (from Research page)
+.btn { display: inline-block; padding: 5px 12px; margin: 2px; font-size: 0.9em; font-weight: 400; line-height: 1.42; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; border: 1px solid transparent; border-radius: 4px; color: #fff; background-color: $button-bg; transition: background-color 0.3s ease; &:hover { background-color: $button-hover-bg; color: #fff; text-decoration: none; }
+}
+.btn-primary { // Keep class for consistency // Specific primary styles if needed, otherwise inherits .btn
+}
+.btn-sm { // Keep class padding: 3px 8px; font-size: 0.8em;
+}
+// Author Profile Styles
+.author-profile { text-align: center; margin-top: 40px; padding: 20px; background: lighten($background-color, 5%); border-radius: 8px; .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 3px solid $magma-accent1; margin-bottom: 15px; } h2 { margin-top: 0; color: $text-color; } p { color: $text-muted; font-size: 0.95em; } .social-links a { font-size: 1.5em; margin: 0 10px; color: $text-muted; &:hover { color: $link-color; } }
+}
+// Inline Author Profile (for bottom of pages)
+.author-profile-inline { display: flex; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid $border-color; .profile-pic-small { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; } p { margin-bottom: 0.2em; font-size: 0.9em; color: $text-muted; } strong { color: $text-color; } .social-links-inline a { margin-right: 10px; color: $text-muted; font-size: 1.1em; &:hover { color: $link-color; } }
+}
+// 6. Homepage Specific Styles (Animation Container)
+#particles-js { position: fixed; // Or absolute, depending on desired effect width: 100%; height: 100%; top: 0; left: 0; z-index: -1; // Place behind content background-color: $background-color; // Ensure it has background // Optional: Add subtle Japanese pattern as background image here // background-image: linear-gradient(rgba(13, 8, 32, 0.95), rgba(13, 8, 32, 0.95)), url($japan-pattern-url); // background-size: cover; // or repeat
+}
+.home-content-wrapper { position: relative; // Ensure content stays above particles z-index: 1; padding-top: 50px; // Add padding so content isn't hidden by fixed header padding-bottom: 50px;
+}
+// 7. Contact Page Icons
+.contact-list i, #contact i { // Assuming you add id="contact" to contact page body or container margin-right: 8px; color: $magma-accent1; // Use accent color for icons width: 1.2em; // Align icons nicely text-align: center;
+}
