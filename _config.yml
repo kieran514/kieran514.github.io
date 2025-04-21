@@ -28,18 +28,18 @@ author:
 
 # Build settings
 markdown: kramdown
-theme: minima # Can be removed if providing all styling yourself, but useful base
+# theme: minima # Can be removed if providing all styling yourself, but useful base
 # plugins:
 #   - jekyll-feed
 #   - jekyll-seo-tag
 
 # Theme-specific settings (if using a theme like minima, otherwise define your own)
-minima:
-  skin: dark # Or default. Or remove if fully custom CSS.
-  social_links: # Duplicates author links slightly, but some themes use this
-    github: kieran514
-    # linkedin: your_linkedin
-    # google_scholar: your_scholar_id
+# minima:
+#   skin: dark # Or default. Or remove if fully custom CSS.
+#   social_links: # Duplicates author links slightly, but some themes use this
+#     github: kieran514
+#     # linkedin: your_linkedin
+#     # google_scholar: your_scholar_id
 
 # Sass settings (if using style.scss)
 sass:
