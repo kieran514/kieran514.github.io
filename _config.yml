@@ -29,9 +29,9 @@ author:
 # Build settings
 markdown: kramdown
 theme: minima # Can be removed if providing all styling yourself, but useful base
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
+# plugins:
+#   - jekyll-feed
+#   - jekyll-seo-tag
 
 # Theme-specific settings (if using a theme like minima, otherwise define your own)
 minima:
