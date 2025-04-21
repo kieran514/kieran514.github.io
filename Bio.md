@@ -1,20 +1,27 @@
 ---
-permalink: /Bio/
+permalink: /
 title: "About Me"
 author_profile: true
-redirect_from: 
-  - /md/
-  - /Bio.html
 ---
 
-## Bio:
+## My Journey in Vision
 
-Kieran Saunders is a second-year PhD student at Aston University, currently focusing on his thesis titled "Self-supervised Monocular Depth Estimation." With a solid background in mathematics, obtained from his BSc in Mathematics at Aston University, he has been actively engaged in the field of computer vision for the past five years. Notably, he has already published three papers: one at ICARSC'23, another at ICCV'23, and one at BMVC'24. His primary interests revolve around depth estimation from a single camera and exploring the potential applications of this technology in various domains, including self-driving vehicles, virtual reality headsets, and underwater navigation.
+I'm Kieran Saunders, a second-year PhD candidate at <span class="blue">Aston University</span>, fueled by a fascination for how we can infer the 3D structure of our world from images. My academic path began with a BSc in Mathematics, also from Aston, which provided the analytical toolkit I now apply to the dynamic field of computer vision. For the past five years, I've been immersed in this area, specifically focusing on the challenge of estimating depth using only a single camera (monocular depth estimation).
 
-## Abstract:
+My research delves into **self-supervised learning** – a powerful paradigm that allows neural networks to learn about depth without needing explicit ground truth depth data, cleverly using the geometry and appearance consistency between video frames. This approach unlocks scalability and adaptability, crucial for real-world deployment.
 
-Depth estimation, a fundamental component of computer vision, finds broad applications in self-driving, virtual reality, robotics, and scene reconstruction. While traditional multiple view geometry principles are well-established, the advent of deep learning has facilitated single-view depth prediction. Employing self-supervised methods, which leverage photometric uniformity between reconstructed frames, we train these networks without relying on ground truth data.
+My primary research goal is to develop depth estimation systems that are not only accurate but also **robust** and **reliable** across diverse and challenging conditions. This includes tackling adverse weather, varying times of day, and exploiting geometric cues more effectively. The potential impact spans autonomous navigation (cars, drones, underwater vehicles), realistic virtual and augmented reality experiences, and advanced robotic perception.
 
-However, current self-supervised depth estimation architectures often assume clear and sunny weather scenes for training deep neural networks, which proves problematic in regions with frequent adverse weather conditions. For instance, in the UK alone, a significant number of days consist of rain. To address this limitation, we proposed Robust-Depth, a cutting-edge method that utilizes augmentations to enhance robustness across various weather conditions, times of the day, and image qualities. By exploiting the correspondence between unaugmented and augmented data, we introduce a pseudo-supervised loss for both depth and pose estimation, surpassing the state-of-the-art on challenging datasets.
+*(Personal Note: Beyond the algorithms, I have a keen interest in Japanese culture and aesthetics, which often inspires a drive for elegance and efficiency in design, even in code!)*
 
-Furthermore, in the domain of multi-baseline stereo, we observe that increasing baseline separation substantially enhances depth estimation accuracy. Nevertheless, prevailing self-supervised depth estimation architectures often use minimal frame separation and a constrained stereo baseline, limiting their efficacy. To address this, we introduce BaseBoostDepth, integrating a curriculum learning-inspired warm-up and boosting optimization strategy to effectively utilize larger frame separations. Despite challenges such as pose estimation drift associated with larger baselines, we leverage this phenomenon to improve foreground detail in the depth network. Our proposed method significantly enhances accuracy metrics across diverse datasets, achieving state-of-the-art performance on both KITTI and SYNS-patches datasets using image-based, edge-based, and point cloud-based metrics.
+---
+
+## Research Focus: Pushing Depth Estimation Frontiers
+
+Depth estimation is fundamental to machine perception. While traditional multi-view stereo techniques are well-understood, deep learning has revolutionized **single-view depth prediction**. My work explores self-supervised methods, training networks by enforcing photometric consistency between synthesized views, eliminating the need for expensive ground truth data.
+
+However, many existing methods falter outside of idealized conditions. My research tackles two key limitations:
+
+1.  **Weather and Lighting Robustness:** Standard models trained on clear-day datasets struggle in rain, fog, or low light – common scenarios, especially in places like the UK! To address this, I developed **Robust-Depth**. This method uses data augmentation strategically, creating a pseudo-supervised signal between augmented and unaugmented views. This forces the network to learn consistent depth and camera pose estimates regardless of visual perturbations, significantly improving performance on weather-degraded and challenging datasets.
+
+2.  **Leveraging Larger Baselines:** Increasing the separation (baseline) between camera views in stereo or video sequences inherently provides stronger geometric cues for depth. Yet, most self-supervised methods use small baselines due to challenges like pose drift and visual dissimilarity. I introduced **BaseBoostDepth**, which employs a curriculum learning-inspired warm-up and boosting strategy. This allows the network to effectively learn from larger frame separations, harnessing the stronger geometric signal while mitigating associated pose estimation issues. This approach has achieved state-of-the-art results on benchmarks like KITTI and SYNS-patches, validated across multiple metrics.
