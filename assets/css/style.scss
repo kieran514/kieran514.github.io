@@ -73,5 +73,7 @@ strong { font-weight: 700; color: $magma-accent2; // Highlight strong text
 .home-content-wrapper { position: relative; // Ensure content stays above particles z-index: 1; padding-top: 50px; // Add padding so content isn't hidden by fixed header padding-bottom: 50px;
 }
 // 7. Contact Page Icons
-.contact-list i, #contact i { // Assuming you add id="contact" to contact page body or container margin-right: 8px; color: $magma-accent1; // Use accent color for icons width: 1.2em; // Align icons nicely text-align: center;
-}
+.contact-list i, #contact i {
+    
+} 
+// Assuming you add id="contact" to contact page body or container margin-right: 8px; color: $magma-accent1; // Use accent color for icons width: 1.2em; // Align icons nicely text-align: center;
