@@ -112,14 +112,32 @@ a {
 // Ensure main content area has a transparent or no background
 // so the particles show through. Minimal Mistakes structure might need inspection.
 // Try this, adjust selector if needed:
+// Add or modify these rules in your main.scss
+
 #main {
-  background-color: transparent !important; // Make main content area transparent
+  position: relative; // Creates a stacking context
+  z-index: 1;       // Ensures it's above anything with z-index < 1
+  background-color: transparent !important; // Make sure particles can be seen *behind* it
 }
-.page {
-   background-color: transparent !important; // Make page wrapper transparent
+
+.page { // Minimal Mistakes often uses this class wrapper
+  position: relative; // Creates a stacking context
+  z-index: 1;       // Ensures it's above anything with z-index < 1
+  background-color: transparent !important; // Make sure particles can be seen *behind* it
 }
-// Potentially add slight background to text blocks for readability if needed
-// .page__content {
-//   background-color: rgba(0, 0, 0, 0.1); // Very subtle dark overlay
-//   padding: 1em;
-// }
+
+// You might also need to target the specific content area
+.page__content {
+   background-color: rgba(0, 0, 0, 0.2); // OPTIONAL: Add a *very* subtle dark overlay ONLY if text is hard to read over particles
+   padding: 1em; // Restore padding if needed
+   position: relative; // Good practice
+   z-index: 1;      // Good practice
+}
+
+// Ensure the header/masthead is also positioned correctly
+.masthead {
+  position: relative; // Can help with z-index issues
+  z-index: 10;      // Keep header above main content and particles
+  // Add a background color explicitly if needed, otherwise it might become transparent
+  background-color: $magma-mid-dark; // Example: Give it a dark magma color explicitly
+}
