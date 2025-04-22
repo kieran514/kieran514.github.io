@@ -32,4 +32,4 @@ Here are some of my key contributions to the field of self-supervised monocular 
       <button type="button" class="btn btn-primary btn-sm" onclick=" window.open('https://github.com/kieran514/Dyna-DM','_blank')">Code</button>
     <br> <br>
 
-*(You can add more publications following this format)*
+<!-- *(You can add more publications following this format)* -->

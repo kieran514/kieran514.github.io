@@ -12,7 +12,7 @@ My research delves into **self-supervised learning** – a powerful paradigm tha
 
 My primary research goal is to develop depth estimation systems that are not only accurate but also **robust** and **reliable** across diverse and challenging conditions. This includes tackling adverse weather, varying times of day, and exploiting geometric cues more effectively. The potential impact spans autonomous navigation (cars, drones, underwater vehicles), realistic virtual and augmented reality experiences, and advanced robotic perception.
 
-*(Personal Note: Beyond the algorithms, I have a keen interest in Japanese culture and aesthetics, which often inspires a drive for elegance and efficiency in design, even in code!)*
+<!-- *(Personal Note: Beyond the algorithms, I have a keen interest in Japanese culture and aesthetics, which often inspires a drive for elegance and efficiency in design, even in code!)* -->
 
 ---
 

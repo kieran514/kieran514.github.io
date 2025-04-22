@@ -14,7 +14,7 @@ My journey started with a BSc in Mathematics, building a strong foundation for t
 
 I've had the privilege of sharing my work at top-tier conferences like **ICCV** and **BMVC**, translating challenging research into tangible progress. Explore my site to learn more about my projects and publications!
 
-*(Design Note: For a 'cool animation' here, consider a subtle background effect using JavaScript/CSS on your site template. Ideas: gently shifting point cloud, a depth map visualization transitioning, or lines connecting 'pixels' to '3D points'. A visual theme incorporating a 'magma' or 'viridis' colormap gradient, popular in depth visualization, would fit well. Subtle Japanese design elements, like minimalist patterns or typography choices, could also be integrated into the site's CSS.)*
+<!-- *(Design Note: For a 'cool animation' here, consider a subtle background effect using JavaScript/CSS on your site template. Ideas: gently shifting point cloud, a depth map visualization transitioning, or lines connecting 'pixels' to '3D points'. A visual theme incorporating a 'magma' or 'viridis' colormap gradient, popular in depth visualization, would fit well. Subtle Japanese design elements, like minimalist patterns or typography choices, could also be integrated into the site's CSS.)* -->
 
 ---
 
