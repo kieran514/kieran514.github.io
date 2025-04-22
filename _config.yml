@@ -1,18 +1,38 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
 # Site settings
-title: Kieran Saunders | Computer Vision Research
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Kieran Saunders | Computer Vision Researcher
 email: 190229315@aston.ac.uk
 description: >- # this means to ignore newlines until "baseurl:"
-  Personal website of Kieran Saunders, PhD student at Aston University,
-  researching self-supervised monocular depth estimation, 3D reconstruction,
-  and robust computer vision.
-baseurl: "" # the subpath of your site, e.g. /blog. If hosted at root, leave empty.
-url: "" # the base hostname & protocol for your site, e.g. http://example.com. Leave empty for GitHub Pages default or fill in if using custom domain.
+  PhD candidate at Aston University specializing in self-supervised monocular depth estimation,
+  robustness in computer vision, and 3D reconstruction.
+baseurl: "" # the subpath of your site, e.g. /blog. Leave empty for username.github.io
+url: "https://kieran514.github.io/" # the base hostname & protocol for your site
+github_username: kieran514
+linkedin_username: YOUR_LINKEDIN_USERNAME # Optional: Add your LinkedIn username
+googlescholar_id: YOUR_GOOGLE_SCHOLAR_ID # Optional: Add your Google Scholar ID (the string of characters in your profile URL)
 
-# Author Profile (used in templates)
+# Minimal Mistakes Theme Settings
+minimal_mistakes_skin: "default" # Start with default, we'll override colors via CSS
+search: true
+
+# Author Settings (Appears in sidebar)
 author:
   name: "Kieran Saunders"
-  avatar: "/assets/images/profile.jpg" # Make sure this image exists
-  bio: "PhD Student @ Aston University | Computer Vision | Depth Estimation | 3D Reconstruction"
+  avatar: "/assets/images/kieran_avatar.jpg" # Put your photo here
+  bio: "PhD Candidate @ Aston University<br>Computer Vision | Depth Estimation | Robustness"
   location: "Birmingham, UK"
   links:
     - label: "Email"
@@ -20,42 +40,28 @@ author:
       url: "mailto:190229315@aston.ac.uk"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://kieran514.github.io/" # Confirm this link
-    # Add Google Scholar, LinkedIn etc. here if desired
-    # - label: "LinkedIn"
-    #   icon: "fab fa-fw fa-linkedin"
-    #   url: "YOUR_LINKEDIN_LINK"
+      url: "https://github.com/kieran514"
+    - label: "LinkedIn" # Optional - remove if no profile
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/YOUR_LINKEDIN_USERNAME"
+    - label: "Google Scholar" # Optional - remove if no profile
+      icon: "fas fa-fw fa-graduation-cap" # Or ai ai-google-scholar if you add academicons
+      url: "https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
 
 # Build settings
 markdown: kramdown
-# theme: minima # Can be removed if providing all styling yourself, but useful base
-# plugins:
-#   - jekyll-feed
-#   - jekyll-seo-tag
+remote_theme: mmistakes/minimal-mistakes # Use the theme gem
+# Outputting Structure
+permalink: /:categories/:title/
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
+timezone: Europe/London # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-# Theme-specific settings (if using a theme like minima, otherwise define your own)
-# minima:
-#   skin: dark # Or default. Or remove if fully custom CSS.
-#   social_links: # Duplicates author links slightly, but some themes use this
-#     github: kieran514
-#     # linkedin: your_linkedin
-#     # google_scholar: your_scholar_id
-
-# Sass settings (if using style.scss)
-sass:
-  sass_dir: assets/css
-  style: compressed # :expanded for debugging
-
-# Defaults for pages
-defaults:
-  - scope:
-      path: "" # an empty string here means all files in the project
-      type: "pages" # applies to pages
-    values:
-      layout: "page" # Default layout for all pages
-      author_profile: true # Show author profile on pages by default
-
+include:
+  - _pages
 # Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -64,3 +70,49 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - README.md
+  - LICENSE.md
+
+# Plugins (previously gems:)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  # - jekyll-seo-tag # Can cause conflicts with manual title/desc sometimes
+  - jekyll-include-cache
+
+# Footer Links
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/kieran514"
+    # Add other footer links if desired
+
+# Defaults for collections
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false # Disable comments
+      share: false # Disable social share
+      related: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+
+# Specify collections
+collections:
+  pages:
+    output: true
+    permalink: /:path/

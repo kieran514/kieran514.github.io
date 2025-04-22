@@ -1,10 +1,11 @@
 ---
 permalink: /
-title: "Hello"
-excerpt: "About me"
+title: "Kieran Saunders" # Changed from "Hello"
+excerpt: "Computer Vision PhD candidate specializing in self-supervised depth estimation." # Updated excerpt
 author_profile: true
+# Add layout: splash if you want a wider, splash-page look for the homepage
+layout: single # Or splash
 ---
-
 
 ## Bridging Pixels and Perception
 

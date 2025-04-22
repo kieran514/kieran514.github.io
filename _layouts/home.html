@@ -1,6 +1,0 @@
---
-layout: default
----
-<div id="particles-js"></div> {# Animation container sits behind content #}
-<div class="home-content-wrapper"> {# Wrapper to place content above animation #} {{ content }} {% if site.author %} <div class="author-profile"> <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile-pic"> <h2>{{ site.author.name }}</h2> <p>{{ site.author.bio }}</p> <p><i class="fas fa-map-marker-alt"></i> {{ site.author.location }}</p> <div class="social-links"> {% for link in site.author.links %} <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" title="{{ link.label }}"> <i class="{{ link.icon }}"></i> </a> {% endfor %} </div> </div> {% endif %}
-</div>

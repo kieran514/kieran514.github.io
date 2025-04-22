@@ -1,6 +1,6 @@
 ---
-title: ""
-permalink: /
+permalink: /research/ # Changed
+title: "Research & Publications" # Changed from ""
 author_profile: true
 ---
 

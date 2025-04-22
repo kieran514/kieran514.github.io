@@ -1,5 +1,0 @@
---
-layout: default
----
-<article class="page"> <header class="page-header"> <h1 class="page-title">{{ page.title | escape }}</h1> </header> <div class="page-content-main"> {{ content }} </div> {% if page.author_profile and site.author %} <hr> <div class="author-profile-inline"> <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile-pic-small"> <div> <strong>{{ site.author.name }}</strong> <p>{{ site.author.bio }}</p> <div class="social-links-inline"> {% for link in site.author.links %} <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" title="{{ link.label }}"> <i class="{{ link.icon }}"></i> </a> {% endfor %} </div> </div> </div> {% endif %}
-</article>

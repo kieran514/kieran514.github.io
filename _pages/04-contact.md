@@ -1,6 +1,6 @@
 ---
+permalink: /contact/ # Changed
 title: "Contact"
-permalink: /
 author_profile: true
 ---
 

@@ -1,0 +1,125 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+// Import Minimal Mistakes default styles
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // Import the skin variable
+@import "minimal-mistakes"; // Import default theme styles
+
+/* ==========================================================================
+   Custom Styles for Kieran Saunders' Website
+   ========================================================================== */
+
+// Magma Color Palette (Approximate - Dark to Bright)
+$magma-dark: #000004;
+$magma-mid-dark: #140e36;
+$magma-mid: #420a68;
+$magma-mid-bright: #7f0f6e;
+$magma-bright: #b9257a;
+$magma-brighter: #e75c6f;
+$magma-brightest: #fcab65;
+$magma-yellow: #fcfdbf;
+
+// Japanese Influence & Modern Feel
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; // Clean sans-serif
+$background-color: $magma-dark; // Dark background
+$text-color: #e0e0e0; // Light grey text for readability
+$muted-text-color: mix(#fff, $text-color, 25%);
+$link-color: $magma-brighter; // Use a bright magma color for links
+$link-color-hover: $magma-yellow; // Brightest on hover
+$masthead-link-color: $text-color; // Navigation links
+$masthead-link-color-hover: $magma-yellow; // Highlight on hover
+
+// Override theme variables
+:root {
+  --background-color: #{$background-color};
+  --text-color: #{$text-color};
+  --muted-text-color: #{$muted-text-color};
+  --link-color: #{$link-color};
+  --link-color-hover: #{$link-color-hover};
+  --navicon-link-color-hover: #{$link-color-hover}; // Mobile nav hover
+  --masthead-link-color: #{$masthead-link-color};
+  --masthead-link-color-hover: #{$masthead-link-color-hover};
+  --primary-color: #{$magma-bright}; // Use for buttons, accents
+
+  // Button colors
+  --button-background-color: var(--primary-color);
+  --button-text-color: #fff; // White text on bright button
+  --button-background-color-hover: #{darken($magma-bright, 10%)};
+
+  // Code block background (adjust if needed)
+  --code-background-color: #{mix($background-color, #fff, 10%)}; // Slightly lighter than main bg
+  --code-background-color-dark: var(--code-background-color); // Use same for dark mode if theme detects it
+}
+
+// Body adjustments
+body {
+  font-family: $base-font-family;
+  background-color: $background-color; // Ensure background color is set
+  color: $text-color;
+}
+
+// Specific element styling
+h1, h2, h3, h4, h5, h6 {
+  color: $magma-brightest; // Bright magma color for headings
+  font-family: $base-font-family; // Consistent font
+}
+
+a {
+  text-decoration: none; // Cleaner look
+  transition: color 0.2s ease-in-out; // Smooth hover
+}
+
+// Author sidebar adjustments (optional)
+.sidebar {
+  .author__avatar img {
+    border: 2px solid $magma-mid-bright; // Subtle border around avatar
+  }
+  .author__urls .social-icons i,
+  .author__urls .social-icons svg {
+     color: $text-color; // Make icons clearer on dark bg
+  }
+   .author__urls .social-icons a:hover i,
+   .author__urls .social-icons a:hover svg {
+     color: $link-color-hover; // Hover effect
+  }
+}
+
+// Style the blue span class from bio.md
+.blue {
+  color: $magma-brighter; // Use a magma color instead of blue
+  font-weight: bold;
+}
+
+// Button styles (if using the ones from research.md)
+// If you keep the buttons, you might need to style them more specifically
+// e.g. .btn-primary { background-color: var(--primary-color); ... etc }
+// Or replace buttons with simple links as suggested earlier.
+
+// Style for the particle container (position behind content)
+#particles-js {
+  position: fixed; // Or absolute depending on container
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1; // Place it behind everything else
+  background-color: $background-color; // Ensure it has the base bg color
+}
+
+// Ensure main content area has a transparent or no background
+// so the particles show through. Minimal Mistakes structure might need inspection.
+// Try this, adjust selector if needed:
+#main {
+  background-color: transparent !important; // Make main content area transparent
+}
+.page {
+   background-color: transparent !important; // Make page wrapper transparent
+}
+// Potentially add slight background to text blocks for readability if needed
+// .page__content {
+//   background-color: rgba(0, 0, 0, 0.1); // Very subtle dark overlay
+//   padding: 1em;
+// }
