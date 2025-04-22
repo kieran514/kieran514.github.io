@@ -48,7 +48,7 @@ author:
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes # Use the theme gem
-theme: minimal-mistakes-jekyll
+# theme: minimal-mistakes-jekyll
 
 # Outputting Structure
 permalink: /:categories/:title/
