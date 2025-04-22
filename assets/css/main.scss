@@ -141,3 +141,11 @@ a {
   // Add a background color explicitly if needed, otherwise it might become transparent
   background-color: $magma-mid-dark; // Example: Give it a dark magma color explicitly
 }
+
+/* Change homepage title color */
+body.layout--single .page__title, // Adjust if using splash layout: body.layout--splash
+main#main h1:first-of-type {      // Fallback selector
+    color: #E75C6F; // Using one of your brighter Magma colors (adjust if needed)
+    // Or a simple bright red:
+    // color: #FF0000;
+}

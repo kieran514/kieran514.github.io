@@ -21,18 +21,15 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog. Leave empty for username.github.io
 url: "https://kieran514.github.io/" # the base hostname & protocol for your site
 github_username: kieran514
-linkedin_username: YOUR_LINKEDIN_USERNAME # Optional: Add your LinkedIn username
-googlescholar_id: YOUR_GOOGLE_SCHOLAR_ID # Optional: Add your Google Scholar ID (the string of characters in your profile URL)
 
 # Minimal Mistakes Theme Settings
 minimal_mistakes_skin: "default" # Start with default, we'll override colors via CSS
-search: true
 
 # Author Settings (Appears in sidebar)
 author:
   name: "Kieran Saunders"
   avatar: "/assets/images/kieran_avatar.jpg" # Put your photo here
-  bio: "PhD Candidate @ Aston University<br>Computer Vision | Depth Estimation | Robustness"
+  bio: "PhD Candidate Aston University | Computer Vision"
   location: "Birmingham, UK"
   links:
     - label: "Email"
@@ -43,22 +40,24 @@ author:
       url: "https://github.com/kieran514"
     - label: "LinkedIn" # Optional - remove if no profile
       icon: "fab fa-fw fa-linkedin"
-      url: "https://linkedin.com/in/YOUR_LINKEDIN_USERNAME"
+      url: "https://www.linkedin.com/in/kieran-saunders-6a5a801a3/"
     - label: "Google Scholar" # Optional - remove if no profile
       icon: "fas fa-fw fa-graduation-cap" # Or ai ai-google-scholar if you add academicons
-      url: "https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
+      url: "https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en"
 
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes # Use the theme gem
+theme: minimal-mistakes-jekyll
+
 # Outputting Structure
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: Europe/London # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-include:
-  - _pages
+# include:
+#   - _pages
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -91,28 +90,35 @@ footer:
     # Add other footer links if desired
 
 # Defaults for collections
+# defaults:
+#   # _posts
+#   - scope:
+#       path: ""
+#       type: posts
+#     values:
+#       layout: single
+#       author_profile: true
+#       read_time: true
+#       comments: false # Disable comments
+#       share: false # Disable social share
+#       related: true
+#   # _pages
+#   - scope:
+#       path: "_pages"
+#       type: pages
+#     values:
+#       layout: single
+#       author_profile: true
+
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
 defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false # Disable comments
-      share: false # Disable social share
-      related: true
-  # _pages
   - scope:
       path: "_pages"
       type: pages
     values:
       layout: single
       author_profile: true
-
-# Specify collections
-collections:
-  pages:
-    output: true
-    permalink: /:path/

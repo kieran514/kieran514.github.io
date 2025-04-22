@@ -2,6 +2,8 @@
 permalink: /about/ # Changed
 title: "About Me"
 author_profile: true
+layout: single
+
 ---
 
 ## My Journey in Vision
