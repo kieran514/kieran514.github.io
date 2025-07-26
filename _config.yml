@@ -23,7 +23,7 @@ url: "https://kieran514.github.io" # the base hostname & protocol for your site
 github_username: kieran514
 
 # Minimal Mistakes Theme Settings
-minimal_mistakes_skin: "air" # "air", "contrast", "dark", "dirt", "mint", "sunrise", etc.
+minimal_mistakes_skin: "air" 
 
 # Author Settings (Appears in sidebar)
 author:
@@ -55,13 +55,8 @@ paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: "Europe/London"
 
-# Plugins
-plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-  - jekyll-include-cache
+# NOTE: The 'plugins' list is intentionally removed. 
+# The 'github-pages' gem in your Gemfile handles this automatically for GitHub Pages.
 
 # Exclude from processing.
 exclude:
