@@ -88,7 +88,7 @@
             padding: 0 1rem;
         }
         .news-item-content.open {
-            max-height: 500px; /* Adjust as needed */
+            max-height: 500px;
             padding: 1rem 1rem 1rem 2.5rem;
         }
         .news-item-header .arrow {
@@ -106,7 +106,6 @@
 
     <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Header and Navigation -->
         <header class="bg-white rounded-lg shadow-md p-6 mb-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div>
@@ -126,7 +125,6 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main>
             <!-- About Me Section -->
             <section id="about" class="section bg-white rounded-lg shadow-md p-8">
@@ -141,8 +139,6 @@
                         <p>My primary research goal is to develop depth estimation systems that are not only accurate but also <strong>robust</strong> and <strong>reliable</strong> across diverse and challenging conditions. The potential impact spans autonomous navigation, realistic virtual and augmented reality experiences, and advanced robotic perception.</p>
                     </div>
                 </div>
-
-                <!-- Timeline Section -->
                 <div class="mt-12">
                     <h3 class="text-2xl font-bold mb-8 text-center">My Journey: From Math to Vision</h3>
                     <div class="max-w-3xl mx-auto">
@@ -273,7 +269,6 @@
             <section id="demos" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-6">Visual Demos</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Demo 1: BaseBoostDepth -->
                     <div class="p-6 rounded-lg border border-gray-200">
                         <h3 class="text-xl font-semibold mb-2">BaseBoostDepth</h3>
                         <p class="text-sm text-gray-600 mb-4">Demonstration of improved depth accuracy and detail by leveraging larger temporal baselines.</p>
@@ -282,7 +277,6 @@
                         </div>
                         <button class="scroll-to-project-btn mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm" data-target="#project-baseboost">View Full Project</button>
                     </div>
-                    <!-- Demo 2: RobustDepth -->
                     <div class="p-6 rounded-lg border border-gray-200">
                         <h3 class="text-xl font-semibold mb-2">Robust-Depth</h3>
                         <p class="text-sm text-gray-600 mb-4">Showcasing model resilience to adverse weather conditions like rain, fog, and nighttime.</p>
@@ -291,7 +285,6 @@
                         </div>
                         <button class="scroll-to-project-btn mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm" data-target="#project-robustdepth">View Full Project</button>
                     </div>
-                    <!-- Demo 3: Dyna-DM (Placeholder) -->
                     <div class="p-6 rounded-lg border border-gray-200 bg-gray-50">
                         <h3 class="text-xl font-semibold mb-2">Dyna-DM</h3>
                         <p class="text-sm text-gray-600 mb-4">Handling dynamic objects in complex scenes for more reliable depth estimation.</p>
@@ -300,7 +293,6 @@
                         </div>
                         <button class="scroll-to-project-btn mt-4 w-full bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed" data-target="#project-dynadm">View Full Project</button>
                     </div>
-                    <!-- Demo 4: GRASP3R (Placeholder) -->
                     <div class="p-6 rounded-lg border border-gray-200 bg-gray-50">
                         <h3 class="text-xl font-semibold mb-2">GRASP3R</h3>
                         <p class="text-sm text-gray-600 mb-4">End-to-end 7-DoF robotic grasping using only uncalibrated RGB images.</p>
@@ -315,50 +307,110 @@
             <!-- Projects Section -->
             <section id="projects" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-6">Research & Publications</h2>
-                <div class="space-y-8">
+                <div class="space-y-10">
+
+                    <!-- GRASP3R Project Card -->
                     <div id="project-grasper" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
-                        <h3 class="text-xl font-semibold">GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping</h3>
-                        <p class="text-md text-gray-600 italic">Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis</p>
-                        <p class="text-sm text-gray-500 mt-1">In Submission</p>
-                        <p class="mt-2"><span class="font-semibold">Highlight:</span> GRASP3R is an end-to-end method for 7-DoF robotic grasping that uses only uncalibrated RGB images, combining dense 3D reconstruction with grasp prediction to eliminate the need for depth sensors while achieving competitive performance.</p>
-                        <div class="mt-4 space-x-2">
-                            <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Paper (Coming Soon)</button>
-                            <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Project Page (Coming Soon)</button>
-                            <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Code (Coming Soon)</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Column: Publication Info -->
+                            <div>
+                                <h3 class="text-xl font-semibold">GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis</p>
+                                <p class="text-sm text-gray-500 mt-1">In Submission to BMVC 2025</p>
+                                <div class="mt-4 space-x-2">
+                                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Paper (Coming Soon)</button>
+                                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Project Page</button>
+                                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Code</button>
+                                </div>
+                            </div>
+                            <!-- Right Column: Technical Snapshot -->
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Robotic grasping methods often require expensive depth sensors and camera calibration, limiting real-world viability.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> Jointly learns 3D scene reconstruction and grasp prediction, enabling collision checking from vision alone.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Sets a new SOTA for RGB-only, calibration-free grasping, achieving competitive performance on the GraspNet-1Billion benchmark.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- BaseBoostDepth Project Card -->
                     <div id="project-baseboost" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
-                        <h3 class="text-xl font-semibold">BaseBoostDepth: Self-Supervised Monocular Depth Estimation via Effective Baseline Boosting</h3>
-                        <p class="text-md text-gray-600 italic">Kieran Saunders, Luis J. Manso, George Vogiatzis</p>
-                        <p class="text-sm text-gray-500 mt-1">British Machine Vision Conference (BMVC) 2024</p>
-                        <p class="mt-2"><span class="font-semibold">Highlight:</span> Introduced a novel training strategy to leverage larger temporal baselines for improved depth accuracy and detail, achieving SOTA results.</p>
-                        <div class="mt-4 space-x-2">
-                           <button onclick="window.open('https://bmva-archive.org.uk/bmvc/2024/papers/Paper_210/paper.pdf','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
-                           <button onclick="window.open('https://kieran514.github.io/BaseBoostDepth-Project/','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Project Page</button>
-                           <button onclick="window.open('https://github.com/kieran514/baseboostdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">BaseBoostDepth: Exploiting Larger Baselines For Self-supervised Monocular Depth Estimation</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, Luis J. Manso, George Vogiatzis</p>
+                                <p class="text-sm text-gray-500 mt-1">British Machine Vision Conference (BMVC) 2024</p>
+                                <div class="mt-4 space-x-2">
+                                   <button onclick="window.open('https://bmva-archive.org.uk/bmvc/2024/papers/Paper_210/paper.pdf','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
+                                   <button onclick="window.open('https://kieran514.github.io/BaseBoostDepth-Project/','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Project Page</button>
+                                   <button onclick="window.open('https://github.com/kieran514/baseboostdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Self-supervised methods fail to use large baselines, missing out on strong geometric cues for depth due to challenges like pose drift.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> A curriculum learning-inspired strategy to train the network progressively on wider frame separations.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> Incremental Pose Estimation to correct drift and Error-Induced Reconstructions to improve robustness.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Achieved SOTA on KITTI and SYNS-patches datasets across multiple metrics without increasing test-time complexity.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Robust-Depth Project Card -->
                     <div id="project-robustdepth" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
-                        <h3 class="text-xl font-semibold">Self-supervised Monocular Depth Estimation: Let's Talk About The Weather</h3>
-                        <p class="text-md text-gray-600 italic">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
-                        <p class="text-sm text-gray-500 mt-1">IEEE/CVF International Conference on Computer Vision (ICCV) 2023</p>
-                        <p class="mt-2"><span class="font-semibold">Highlight:</span> Developed Robust-Depth, enhancing model resilience to adverse weather and visual conditions via augmentation-based pseudo-supervision.</p>
-                        <div class="mt-4 space-x-2">
-                           <button onclick="window.open('https://openaccess.thecvf.com/content/ICCV2023/papers/Saunders_Self-supervised_Monocular_Depth_Estimation_Lets_Talk_About_The_Weather_ICCV_2023_paper.pdf','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
-                           <button onclick="window.open('https://kieran514.github.io/Robust-Depth-Project/','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Project Page</button>
-                           <button onclick="window.open('https://github.com/kieran514/robustdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">Self-supervised Monocular Depth Estimation: Let's Talk About The Weather</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
+                                <p class="text-sm text-gray-500 mt-1">IEEE/CVF International Conference on Computer Vision (ICCV) 2023</p>
+                                <div class="mt-4 space-x-2">
+                                   <button onclick="window.open('https://openaccess.thecvf.com/content/ICCV2023/papers/Saunders_Self-supervised_Monocular_Depth_Estimation_Lets_Talk_About_The_Weather_ICCV_2023_paper.pdf','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
+                                   <button onclick="window.open('https://kieran514.github.io/Robust-Depth-Project/','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Project Page</button>
+                                   <button onclick="window.open('https://github.com/kieran514/robustdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Models trained on clear-weather data fail in real-world adverse conditions like rain, fog, or night.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> A bi-directional, pseudo-supervision loss exploiting consistency between augmented and unaugmented views.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> "Semi-augmented warping" to isolate the depth learning task from noisy pose estimations in augmented data.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Significantly surpasses SOTA on adverse condition datasets (DrivingStereo, Foggy CityScape, NuScenes-Night) while maintaining performance on KITTI.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Dyna-DM Project Card -->
                     <div id="project-dynadm" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
-                        <h3 class="text-xl font-semibold">Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps</h3>
-                        <p class="text-md text-gray-600 italic">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
-                        <p class="text-sm text-gray-500 mt-1">International Conference on Autonomous Robot Systems and Competitions (ICARSC) 2023</p>
-                        <p class="mt-2"><span class="font-semibold">Highlight:</span> Focused on improving depth estimation in dynamic scenes by identifying and handling moving objects.</p>
-                        <div class="mt-4 space-x-2">
-                           <button onclick="window.open('https://arxiv.org/pdf/2206.03799','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
-                           <button onclick="window.open('https://github.com/kieran514/Dyna-DM','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
+                                <p class="text-sm text-gray-500 mt-1">International Conference on Autonomous Robot Systems and Competitions (ICARSC) 2023</p>
+                                <div class="mt-4 space-x-2">
+                                   <button onclick="window.open('https://arxiv.org/pdf/2206.03799','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
+                                   <!-- <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Project Page</button> -->
+                                   <button onclick="window.open('https://github.com/kieran514/Dyna-DM','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Estimating motion for all potentially dynamic objects is computationally wasteful and can introduce errors if they are static.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> An efficient appearance-based filter (using Dice coefficient) to identify "truly dynamic" objects, ignoring static ones.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> Showed that disregarding small, distant objects from motion estimation improves both performance and efficiency.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Improved depth accuracy over prior dynamic-aware methods while reducing GPU memory usage by over 29%.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </section>
 
