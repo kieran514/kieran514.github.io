@@ -9,143 +9,129 @@
 @import "minimal-mistakes"; // Import default theme styles
 
 /* ==========================================================================
-   Custom Styles for Kieran Saunders' Website
+   Custom Styles for Modern Academic Portfolio
    ========================================================================== */
 
-// Magma Color Palette (Approximate - Dark to Bright)
-$magma-dark: #000004;
-$magma-mid-dark: #140e36;
-$magma-mid: #420a68;
-$magma-mid-bright: #7f0f6e;
-$magma-bright: #b9257a;
-$magma-brighter: #e75c6f;
-$magma-brightest: #fcab65;
-$magma-yellow: #fcfdbf;
-
-// Japanese Influence & Modern Feel
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; // Clean sans-serif
-$background-color: $magma-dark; // Dark background
-$text-color: #e0e0e0; // Light grey text for readability
-$muted-text-color: mix(#fff, $text-color, 25%);
-$link-color: $magma-brighter; // Use a bright magma color for links
-$link-color-hover: $magma-yellow; // Brightest on hover
-$masthead-link-color: $text-color; // Navigation links
-$masthead-link-color-hover: $magma-yellow; // Highlight on hover
-
-// Override theme variables
-:root {
-  --background-color: #{$background-color};
-  --text-color: #{$text-color};
-  --muted-text-color: #{$muted-text-color};
-  --link-color: #{$link-color};
-  --link-color-hover: #{$link-color-hover};
-  --navicon-link-color-hover: #{$link-color-hover}; // Mobile nav hover
-  --masthead-link-color: #{$masthead-link-color};
-  --masthead-link-color-hover: #{$masthead-link-color-hover};
-  --primary-color: #{$magma-bright}; // Use for buttons, accents
-
-  // Button colors
-  --button-background-color: var(--primary-color);
-  --button-text-color: #fff; // White text on bright button
-  --button-background-color-hover: #{darken($magma-bright, 10%)};
-
-  // Code block background (adjust if needed)
-  --code-background-color: #{mix($background-color, #fff, 10%)}; // Slightly lighter than main bg
-  --code-background-color-dark: var(--code-background-color); // Use same for dark mode if theme detects it
-}
-
-// Body adjustments
-body {
-  font-family: $base-font-family;
-  background-color: $background-color; // Ensure background color is set
-  color: $text-color;
-}
-
-// Specific element styling
-h1, h2, h3, h4, h5, h6 {
-  color: $magma-brightest; // Bright magma color for headings
-  font-family: $base-font-family; // Consistent font
-}
-
-a {
-  text-decoration: none; // Cleaner look
-  transition: color 0.2s ease-in-out; // Smooth hover
-}
-
-// Author sidebar adjustments (optional)
-.sidebar {
-  .author__avatar img {
-    border: 2px solid $magma-mid-bright; // Subtle border around avatar
-  }
-  .author__urls .social-icons i,
-  .author__urls .social-icons svg {
-     color: $text-color; // Make icons clearer on dark bg
-  }
-   .author__urls .social-icons a:hover i,
-   .author__urls .social-icons a:hover svg {
-     color: $link-color-hover; // Hover effect
+// Make the base font slightly larger for better readability
+html {
+  font-size: 16px; // default is 16px, can increase to 17px or 18px
+  @include breakpoint($large) {
+    font-size: 18px;
   }
 }
 
-// Style the blue span class from bio.md
-.blue {
-  color: $magma-brighter; // Use a magma color instead of blue
-  font-weight: bold;
+// Style for the homepage hero section
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: #f8f9fa; // A very light grey
+  border-bottom: 1px solid $border-color;
+
+  &__title {
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtitle {
+    font-size: 1.25rem;
+    color: $muted-text-color;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-// Button styles (if using the ones from research.md)
-// If you keep the buttons, you might need to style them more specifically
-// e.g. .btn-primary { background-color: var(--primary-color); ... etc }
-// Or replace buttons with simple links as suggested earlier.
+// Button styles for call-to-actions
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid;
 
-// Style for the particle container (position behind content)
-#particles-js {
-  position: fixed; // Or absolute depending on container
-  width: 100%;
+  &--primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      border-color: darken($primary-color, 10%);
+      color: #fff;
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    border-color: $primary-color;
+    color: $primary-color;
+    &:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+  }
+}
+
+// Grid layout for project cards
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  
+  @include breakpoint($medium) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Project card styles
+.project-card {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.2s ease-in-out;
   height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1; // Place it behind everything else
-  background-color: $background-color; // Ensure it has the base bg color
-}
+  display: flex;
+  flex-direction: column;
 
-// Ensure main content area has a transparent or no background
-// so the particles show through. Minimal Mistakes structure might need inspection.
-// Try this, adjust selector if needed:
-// Add or modify these rules in your main.scss
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+  }
 
-#main {
-  position: relative; // Creates a stacking context
-  z-index: 1;       // Ensures it's above anything with z-index < 1
-  background-color: transparent !important; // Make sure particles can be seen *behind* it
-}
+  &__title {
+    font-size: 1.25rem;
+    margin-top: 0;
+  }
 
-.page { // Minimal Mistakes often uses this class wrapper
-  position: relative; // Creates a stacking context
-  z-index: 1;       // Ensures it's above anything with z-index < 1
-  background-color: transparent !important; // Make sure particles can be seen *behind* it
-}
+  &__description {
+    flex-grow: 1; // Allows description to fill space
+    color: $muted-text-color;
+  }
 
-// You might also need to target the specific content area
-.page__content {
-   background-color: rgba(0, 0, 0, 0.2); // OPTIONAL: Add a *very* subtle dark overlay ONLY if text is hard to read over particles
-   padding: 1em; // Restore padding if needed
-   position: relative; // Good practice
-   z-index: 1;      // Good practice
-}
+  &__tags {
+    margin: 1rem 0;
+    .tag {
+      display: inline-block;
+      background-color: lighten($primary-color, 40%);
+      color: darken($primary-color, 10%);
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
 
-// Ensure the header/masthead is also positioned correctly
-.masthead {
-  position: relative; // Can help with z-index issues
-  z-index: 10;      // Keep header above main content and particles
-  // Add a background color explicitly if needed, otherwise it might become transparent
-  background-color: $magma-mid-dark; // Example: Give it a dark magma color explicitly
-}
-
-/* Change homepage title color */
-body.layout--single .page__title, // Adjust if using splash layout: body.layout--splash
-main#main h1:first-of-type {      // Fallback selector
-    color: #E75C6F; // Using one of your brighter Magma colors (adjust if needed)
-    // Or a simple bright red:
-    // color: #FF0000;
+  &__links {
+    margin-top: auto; // Pushes links to the bottom
+    a {
+      margin-right: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  }
 }
