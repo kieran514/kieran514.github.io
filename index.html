@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kieran Saunders - PhD Candidate</title>
+    <!-- Favicon for the browser tab -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* A subtle, professional background color */
+            background-color: #f0f2f5;
         }
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
         }
         .nav-link.active {
-            color: #1d4ed8; /* A strong blue for the active link */
+            color: #1d4ed8;
             border-bottom: 2px solid #1d4ed8;
         }
         .section {
@@ -25,10 +27,57 @@
         .section.active {
             display: block;
         }
-        /* Style for the blue text from the markdown */
         .blue {
             color: #2563eb;
             font-weight: 600;
+        }
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 4px solid #1d4ed8;
+            z-index: 10;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0.75rem;
+            width: 2px;
+            height: 100%;
+            background-color: #d1d5db;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .timeline-branch {
+            padding-left: 2.5rem;
+            position: relative;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .timeline-branch::before {
+            content: '';
+            position: absolute;
+            left: -1.9rem;
+            top: 1.1rem;
+            width: 2rem;
+            height: 2px;
+            background-color: #d1d5db;
         }
     </style>
 </head>
@@ -63,13 +112,46 @@
                 <div class="flex flex-col md:flex-row items-start gap-8">
                     <div class="w-full md:w-1/3 flex-shrink-0">
                         <img src="assets/kieran_avatar.JPG" alt="Kieran Saunders" class="rounded-lg shadow-lg w-full">
-                         <!-- <p class="text-center text-sm text-gray-500 mt-2">Replace with `kieran_avatar.JPG`</p> -->
                     </div>
                     <div class="prose max-w-none">
-                        <h2 class="text-2xl font-bold mb-4">My Journey in Vision</h2>
-                        <p>I'm Kieran Saunders, a second-year PhD candidate at <span class="blue">Aston University</span>, fueled by a fascination for how we can infer the 3D structure of our world from images. My academic path began with a BSc in Mathematics, also from Aston, which provided the analytical toolkit I now apply to the dynamic field of computer vision. For the past five years, I've been immersed in this area, specifically focusing on the challenge of estimating depth using only a single camera (monocular depth estimation).</p>
-                        <p>My research delves into <strong>self-supervised learning</strong> – a powerful paradigm that allows neural networks to learn about depth without needing explicit ground truth depth data, cleverly using the geometry and appearance consistency between video frames. This approach unlocks scalability and adaptability, crucial for real-world deployment.</p>
-                        <p>My primary research goal is to develop depth estimation systems that are not only accurate but also <strong>robust</strong> and <strong>reliable</strong> across diverse and challenging conditions. This includes tackling adverse weather, varying times of day, and exploiting geometric cues more effectively. The potential impact spans autonomous navigation (cars, drones, underwater vehicles), realistic virtual and augmented reality experiences, and advanced robotic perception.</p>
+                        <h2 class="text-2xl font-bold mb-4">My Story</h2>
+                        <p>I'm Kieran Saunders, a PhD candidate at <span class="blue">Aston University</span>, fueled by a fascination for how we can infer the 3D structure of our world from images. My academic path began with a BSc in Mathematics, also from Aston, which provided the analytical toolkit I now apply to the dynamic field of computer vision. For the past six years, I've been immersed in this area, specifically focusing on the challenge of estimating depth using only a single camera (monocular depth estimation).</p>
+                        <p>My research delves into <strong>self-supervised learning</strong> – a powerful paradigm that allows neural networks to learn about depth without needing explicit ground truth depth data. This approach unlocks scalability and adaptability, crucial for real-world deployment.</p>
+                        <p>My primary research goal is to develop depth estimation systems that are not only accurate but also <strong>robust</strong> and <strong>reliable</strong> across diverse and challenging conditions. The potential impact spans autonomous navigation, realistic virtual and augmented reality experiences, and advanced robotic perception.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Section -->
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold mb-8 text-center">My Journey: From Math to Vision</h3>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-lg text-blue-700">BSc in Mathematics</h4>
+                            <p class="text-sm text-gray-600">Established a strong foundation in analytical and logical reasoning, setting the stage for a career in a technical field.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-lg text-blue-700">PhD in Computer Vision</h4>
+                            <p class="text-sm text-gray-600">Deep dive into Self-Supervised Monocular Depth Estimation, turning 2D images into 3D understanding.</p>
+                            <!-- Branch for Papers -->
+                            <div class="mt-4 space-y-2">
+                                <div class="timeline-branch">
+                                    <div class="font-semibold"><i class="fas fa-robot mr-2 text-blue-500"></i>Dyna-DM (ICARSC 2023)</div>
+                                    <p class="text-sm text-gray-600 ml-7">First steps in handling dynamic objects in scenes.</p>
+                                </div>
+                                <div class="timeline-branch">
+                                    <div class="font-semibold"><i class="fas fa-cloud-sun-rain mr-2 text-blue-500"></i>Robust-Depth (ICCV 2023)</div>
+                                    <p class="text-sm text-gray-600 ml-7">Improving model robustness to adverse weather conditions.</p>
+                                </div>
+                                <div class="timeline-branch">
+                                    <div class="font-semibold"><i class="fas fa-arrows-alt-h mr-2 text-blue-500"></i>BaseBoostDepth (BMVC 2024)</div>
+                                     <p class="text-sm text-gray-600 ml-7">Leveraging larger baselines for state-of-the-art accuracy.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="timeline-item">
+                            <h4 class="font-bold text-lg text-blue-700">Future Work</h4>
+                            <p class="text-sm text-gray-600">Continuing to push the frontiers of 3D perception, with new work in robotic grasping (<span class="font-semibold">GRASP3R</span>) and beyond. More to come!</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -112,18 +194,16 @@
             <section id="demos" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-4">Demos</h2>
                 <p>This section is currently under construction. Please check back later for interactive demos of my work!</p>
-                <!-- You can embed demos here later -->
             </section>
 
             <!-- Projects Section -->
             <section id="projects" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-6">Research & Publications</h2>
                 <div class="space-y-8">
-                    <!-- Project 1 -->
-                    <div class="p-6 rounded-lg border border-gray-200">
+                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis</p>
-                        <p class="text-sm text-gray-500 mt-1">British Machine Vision Conference (BMVC) 2024</p>
+                        <p class="text-sm text-gray-500 mt-1">In Submission</p>
                         <p class="mt-2"><span class="font-semibold">Highlight:</span> GRASP3R is an end-to-end method for 7-DoF robotic grasping that uses only uncalibrated RGB images, combining dense 3D reconstruction with grasp prediction to eliminate the need for depth sensors while achieving competitive performance.</p>
                         <div class="mt-4 space-x-2">
                             <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Paper (Coming Soon)</button>
@@ -131,7 +211,7 @@
                             <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Code (Coming Soon)</button>
                         </div>
                     </div>
-                    <div class="p-6 rounded-lg border border-gray-200">
+                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">BaseBoostDepth: Self-Supervised Monocular Depth Estimation via Effective Baseline Boosting</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, Luis J. Manso, George Vogiatzis</p>
                         <p class="text-sm text-gray-500 mt-1">British Machine Vision Conference (BMVC) 2024</p>
@@ -142,8 +222,7 @@
                            <button onclick="window.open('https://github.com/kieran514/baseboostdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
                         </div>
                     </div>
-                    <!-- Project 2 -->
-                    <div class="p-6 rounded-lg border border-gray-200">
+                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">Self-supervised Monocular Depth Estimation: Let's Talk About The Weather</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
                         <p class="text-sm text-gray-500 mt-1">IEEE/CVF International Conference on Computer Vision (ICCV) 2023</p>
@@ -154,8 +233,7 @@
                            <button onclick="window.open('https://github.com/kieran514/robustdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
                         </div>
                     </div>
-                    <!-- Project 3 -->
-                    <div class="p-6 rounded-lg border border-gray-200">
+                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
                         <p class="text-sm text-gray-500 mt-1">International Conference on Autonomous Robot Systems and Competitions (ICARSC) 2023</p>
@@ -180,8 +258,8 @@
                         <h3 class="text-lg font-semibold mt-6 mb-2">Professional Profiles</h3>
                         <ul class="space-y-2">
                             <li><i class="fab fa-github mr-2 text-blue-500"></i><a href="https://github.com/kieran514" target="_blank" class="text-blue-600 hover:underline">GitHub</a></li>
-                            <li><i class="fab fa-linkedin mr-2 text-blue-500"></i><a href="#" target="_blank" class="text-blue-600 hover:underline">LinkedIn (Add Your Link)</a></li>
-                             <li><i class="fas fa-graduation-cap mr-2 text-blue-500"></i><a href="#" target="_blank" class="text-blue-600 hover:underline">Google Scholar (Add Your Link)</a></li>
+                            <li><i class="fab fa-linkedin mr-2 text-blue-500"></i><a href="https://www.linkedin.com/in/kieran-saunders-6a5a801a3/" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a></li>
+                             <li><i class="fas fa-graduation-cap mr-2 text-blue-500"></i><a href="https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en" target="_blank" class="text-blue-600 hover:underline">Google Scholar</a></li>
                         </ul>
                     </div>
                     <div>
@@ -206,7 +284,6 @@
             const navLinks = document.querySelectorAll('.nav-link');
 
             function showSection(hash) {
-                // Default to 'about' if hash is empty or just '#'
                 const id = (hash || '#about').substring(1);
                 let sectionFound = false;
 
@@ -219,13 +296,11 @@
                     }
                 });
                 
-                // If no section matches, show the 'about' section
                 if (!sectionFound) {
                     document.getElementById('about').classList.add('active');
                 }
 
                 navLinks.forEach(link => {
-                    // Check if link's href matches the section id
                     if (link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active');
                     } else {
@@ -234,25 +309,21 @@
                 });
             }
 
-            // Handle navigation clicks
             navLinks.forEach(link => {
-                // Only add click listener for internal links
                 if (link.getAttribute('href').startsWith('#')) {
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
                         const hash = this.getAttribute('href');
-                        history.pushState(null, null, hash); // Update URL without reloading
+                        history.pushState(null, null, hash);
                         showSection(hash);
                     });
                 }
             });
 
-            // Handle back/forward browser navigation
             window.addEventListener('popstate', function() {
                 showSection(window.location.hash);
             });
 
-            // Show initial section based on URL hash
             showSection(window.location.hash);
         });
     </script>
