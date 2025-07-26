@@ -97,6 +97,9 @@
         .news-item-header.open .arrow {
             transform: rotate(90deg);
         }
+        .aspect-w-16 { position: relative; padding-bottom: 56.25%; }
+        .aspect-h-9 { height: 0; }
+        .aspect-w-16 > iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -177,7 +180,6 @@
             <section id="news" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-6">Highlights & News</h2>
                 <ul class="space-y-2">
-                    <!-- News Item 1 -->
                     <li class="border-b border-gray-200 pb-2">
                         <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
                             <div class="flex items-start">
@@ -194,7 +196,6 @@
                             <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-baseboost">View Project Details</button>
                         </div>
                     </li>
-                    <!-- News Item 2 -->
                     <li class="border-b border-gray-200 pb-2">
                         <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
                             <div class="flex items-start">
@@ -211,7 +212,6 @@
                             <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-robustdepth">View Project Details</button>
                         </div>
                     </li>
-                    <!-- News Item 3 -->
                     <li class="border-b border-gray-200 pb-2">
                         <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
                             <div class="flex items-start">
@@ -228,8 +228,7 @@
                             <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-dynadm">View Project Details</button>
                         </div>
                     </li>
-                     <!-- News Item 4 -->
-                    <li class="border-b border-gray-200 pb-2">
+                     <li class="border-b border-gray-200 pb-2">
                         <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
                             <div class="flex items-start">
                                 <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-award"></i></span>
@@ -248,7 +247,6 @@
                             </ul>
                         </div>
                     </li>
-                    <!-- News Item 5 -->
                      <li class="border-b-0 pb-2">
                         <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
                             <div class="flex items-start">
@@ -273,8 +271,45 @@
 
             <!-- Demos Section -->
             <section id="demos" class="section bg-white rounded-lg shadow-md p-8">
-                <h2 class="text-2xl font-bold mb-4">Demos</h2>
-                <p>This section is currently under construction. Please check back later for interactive demos of my work!</p>
+                <h2 class="text-2xl font-bold mb-6">Visual Demos</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Demo 1: BaseBoostDepth -->
+                    <div class="p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2">BaseBoostDepth</h3>
+                        <p class="text-sm text-gray-600 mb-4">Demonstration of improved depth accuracy and detail by leveraging larger temporal baselines.</p>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+                            <iframe src="https://www.youtube-nocookie.com/embed/QbDem7nnbbY" title="YouTube video player for BaseBoostDepth" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm" data-target="#project-baseboost">View Full Project</button>
+                    </div>
+                    <!-- Demo 2: RobustDepth -->
+                    <div class="p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2">Robust-Depth</h3>
+                        <p class="text-sm text-gray-600 mb-4">Showcasing model resilience to adverse weather conditions like rain, fog, and nighttime.</p>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+                            <iframe src="https://www.youtube-nocookie.com/embed/zGXzpJAWjcQ" title="YouTube video player for RobustDepth" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm" data-target="#project-robustdepth">View Full Project</button>
+                    </div>
+                    <!-- Demo 3: Dyna-DM (Placeholder) -->
+                    <div class="p-6 rounded-lg border border-gray-200 bg-gray-50">
+                        <h3 class="text-xl font-semibold mb-2">Dyna-DM</h3>
+                        <p class="text-sm text-gray-600 mb-4">Handling dynamic objects in complex scenes for more reliable depth estimation.</p>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg bg-gray-200 flex items-center justify-center">
+                            <p class="text-gray-500">Animation coming soon!</p>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed" data-target="#project-dynadm">View Full Project</button>
+                    </div>
+                    <!-- Demo 4: GRASP3R (Placeholder) -->
+                    <div class="p-6 rounded-lg border border-gray-200 bg-gray-50">
+                        <h3 class="text-xl font-semibold mb-2">GRASP3R</h3>
+                        <p class="text-sm text-gray-600 mb-4">End-to-end 7-DoF robotic grasping using only uncalibrated RGB images.</p>
+                         <div class="aspect-w-16 aspect-h-9 rounded-lg bg-gray-200 flex items-center justify-center">
+                            <p class="text-gray-500">Animation coming soon!</p>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed" data-target="#project-grasper">View Full Project</button>
+                    </div>
+                </div>
             </section>
 
             <!-- Projects Section -->
@@ -379,7 +414,7 @@
                     document.getElementById('about').classList.add('active');
                 }
                 navLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${id}`) {
+                    if (link.getAttribute('href').startsWith('#') && link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active');
                     } else {
                         link.classList.remove('active');
@@ -407,16 +442,12 @@
                 header.addEventListener('click', () => {
                     const content = header.nextElementSibling;
                     const isOpen = content.classList.contains('open');
-
-                    // Close all other items
                     document.querySelectorAll('.news-item-content.open').forEach(openContent => {
                         if (openContent !== content) {
                             openContent.classList.remove('open');
                             openContent.previousElementSibling.classList.remove('open');
                         }
                     });
-
-                    // Toggle the clicked item
                     content.classList.toggle('open');
                     header.classList.toggle('open');
                 });
@@ -426,16 +457,14 @@
             const scrollButtons = document.querySelectorAll('.scroll-to-project-btn');
             scrollButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent accordion from closing
+                    e.stopPropagation(); 
                     const targetId = button.dataset.target;
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        // First, ensure the projects tab is active
                         showSection('#projects');
-                        // Then, scroll to the element
                         setTimeout(() => {
                             targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }, 100); // A small delay ensures the section is visible before scrolling
+                        }, 100); 
                     }
                 });
             });
