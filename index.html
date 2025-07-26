@@ -13,6 +13,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f2f5;
+            scroll-behavior: smooth;
         }
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
@@ -79,6 +80,23 @@
             height: 2px;
             background-color: #d1d5db;
         }
+        /* Accordion Styles for News Section */
+        .news-item-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 1rem;
+        }
+        .news-item-content.open {
+            max-height: 500px; /* Adjust as needed */
+            padding: 1rem 1rem 1rem 2.5rem;
+        }
+        .news-item-header .arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+        .news-item-header.open .arrow {
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -132,7 +150,6 @@
                         <div class="timeline-item">
                             <h4 class="font-bold text-lg text-blue-700">PhD in Computer Vision</h4>
                             <p class="text-sm text-gray-600">Deep dive into Self-Supervised Monocular Depth Estimation, turning 2D images into 3D understanding.</p>
-                            <!-- Branch for Papers -->
                             <div class="mt-4 space-y-2">
                                 <div class="timeline-branch">
                                     <div class="font-semibold"><i class="fas fa-robot mr-2 text-blue-500"></i>Dyna-DM (ICARSC 2023)</div>
@@ -159,32 +176,96 @@
             <!-- News Section -->
             <section id="news" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-6">Highlights & News</h2>
-                <ul class="space-y-4">
-                    <li class="flex items-start">
-                        <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
-                        <div>
-                            <p class="font-semibold">Presented BaseBoostDepth (BMVC'24) in Glasgow, Scotland! 🏴󠁧󠁢󠁳󠁣󠁴󠁿</p>
-                            <p class="text-sm text-gray-500">Nov 2024</p>
+                <ul class="space-y-2">
+                    <!-- News Item 1 -->
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <p class="font-semibold">Presented BaseBoostDepth (BMVC'24) in Glasgow, Scotland! 🏴󠁧󠁢󠁳󠁣󠁴󠁿</p>
+                                    <p class="text-sm text-gray-500">Nov 2024</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">This work introduces a novel training strategy to leverage larger temporal baselines for improved depth accuracy, achieving state-of-the-art results.</p>
+                            <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-baseboost">View Project Details</button>
                         </div>
                     </li>
-                    <li class="flex items-start">
-                        <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
-                        <div>
-                            <p class="font-semibold">Showcased Robust-Depth (ICCV'23) in Paris, France! 🇫🇷</p>
-                            <p class="text-sm text-gray-500">Jul 2023</p>
+                    <!-- News Item 2 -->
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <p class="font-semibold">Showcased Robust-Depth (ICCV'23) in Paris, France! 🇫🇷</p>
+                                    <p class="text-sm text-gray-500">Jul 2023</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">This paper enhances model resilience to adverse weather and visual conditions via a novel augmentation-based pseudo-supervision technique.</p>
+                            <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-robustdepth">View Project Details</button>
                         </div>
                     </li>
-                    <li class="flex items-start">
-                        <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
-                        <div>
-                            <p class="font-semibold">Orally presented Dyna-DM (ICARSC'23) in Tomar, Portugal! 🇵🇹</p>
-                            <p class="text-sm text-gray-500">Mar 2023</p>
+                    <!-- News Item 3 -->
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <p class="font-semibold">Orally presented Dyna-DM (ICARSC'23) in Tomar, Portugal! 🇵🇹</p>
+                                    <p class="text-sm text-gray-500">Mar 2023</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">This research focused on improving depth estimation in dynamic scenes by identifying and handling moving objects, a critical challenge in real-world applications.</p>
+                            <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-dynadm">View Project Details</button>
                         </div>
                     </li>
-                     <li class="flex items-start">
-                        <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-award"></i></span>
-                        <div>
-                            <p class="font-semibold">Recognized with the Department Prize in Mathematics & Final Year Project Prize at Aston University.</p>
+                     <!-- News Item 4 -->
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-award"></i></span>
+                                <div>
+                                    <p class="font-semibold">Awarded Department Prize in Mathematics</p>
+                                    <p class="text-sm text-gray-500">Aston University</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">Achieved the highest overall grade in the department, recognizing outstanding academic performance across all modules.</p>
+                            <ul class="text-sm mt-2 list-disc list-inside">
+                                <li><span class="font-semibold">Overall Grade:</span> 87%</li>
+                                <li><span class="font-semibold">Degree Classification:</span> First Class Honours</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- News Item 5 -->
+                     <li class="border-b-0 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-award"></i></span>
+                                <div>
+                                    <p class="font-semibold">Awarded Final Year Project Prize</p>
+                                    <p class="text-sm text-gray-500">Aston University</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">Recognized for the most outstanding final year project, which laid the groundwork for my subsequent PhD research.</p>
+                             <ul class="text-sm mt-2 list-disc list-inside">
+                                <li><span class="font-semibold">Project Title:</span> Self-supervised Monocular Depth Estimation (handling dynamic objects).</li>
+                                <li>This project directly inspired the research for the <span class="font-semibold">Dyna-DM</span> paper.</li>
+                            </ul>
                         </div>
                     </li>
                 </ul>
@@ -200,7 +281,7 @@
             <section id="projects" class="section bg-white rounded-lg shadow-md p-8">
                 <h2 class="text-2xl font-bold mb-6">Research & Publications</h2>
                 <div class="space-y-8">
-                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                    <div id="project-grasper" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis</p>
                         <p class="text-sm text-gray-500 mt-1">In Submission</p>
@@ -211,7 +292,7 @@
                             <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Code (Coming Soon)</button>
                         </div>
                     </div>
-                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                    <div id="project-baseboost" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">BaseBoostDepth: Self-Supervised Monocular Depth Estimation via Effective Baseline Boosting</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, Luis J. Manso, George Vogiatzis</p>
                         <p class="text-sm text-gray-500 mt-1">British Machine Vision Conference (BMVC) 2024</p>
@@ -222,7 +303,7 @@
                            <button onclick="window.open('https://github.com/kieran514/baseboostdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
                         </div>
                     </div>
-                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                    <div id="project-robustdepth" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">Self-supervised Monocular Depth Estimation: Let's Talk About The Weather</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
                         <p class="text-sm text-gray-500 mt-1">IEEE/CVF International Conference on Computer Vision (ICCV) 2023</p>
@@ -233,7 +314,7 @@
                            <button onclick="window.open('https://github.com/kieran514/robustdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
                         </div>
                     </div>
-                    <div class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                    <div id="project-dynadm" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
                         <h3 class="text-xl font-semibold">Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps</h3>
                         <p class="text-md text-gray-600 italic">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
                         <p class="text-sm text-gray-500 mt-1">International Conference on Autonomous Robot Systems and Competitions (ICARSC) 2023</p>
@@ -254,7 +335,6 @@
                     <div>
                         <h3 class="text-lg font-semibold mb-2">Email</h3>
                         <p><i class="fas fa-envelope mr-2 text-blue-500"></i><a href="mailto:190229315@aston.ac.uk" class="text-blue-600 hover:underline">190229315@aston.ac.uk</a></p>
-                        
                         <h3 class="text-lg font-semibold mt-6 mb-2">Professional Profiles</h3>
                         <ul class="space-y-2">
                             <li><i class="fab fa-github mr-2 text-blue-500"></i><a href="https://github.com/kieran514" target="_blank" class="text-blue-600 hover:underline">GitHub</a></li>
@@ -280,13 +360,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Section navigation logic
             const sections = document.querySelectorAll('.section');
             const navLinks = document.querySelectorAll('.nav-link');
 
             function showSection(hash) {
                 const id = (hash || '#about').substring(1);
                 let sectionFound = false;
-
                 sections.forEach(section => {
                     if (section.id === id) {
                         section.classList.add('active');
@@ -295,11 +375,9 @@
                         section.classList.remove('active');
                     }
                 });
-                
                 if (!sectionFound) {
                     document.getElementById('about').classList.add('active');
                 }
-
                 navLinks.forEach(link => {
                     if (link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active');
@@ -320,11 +398,47 @@
                 }
             });
 
-            window.addEventListener('popstate', function() {
-                showSection(window.location.hash);
+            window.addEventListener('popstate', () => showSection(window.location.hash));
+            showSection(window.location.hash);
+
+            // Accordion logic for News section
+            const newsHeaders = document.querySelectorAll('.news-item-header');
+            newsHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const isOpen = content.classList.contains('open');
+
+                    // Close all other items
+                    document.querySelectorAll('.news-item-content.open').forEach(openContent => {
+                        if (openContent !== content) {
+                            openContent.classList.remove('open');
+                            openContent.previousElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle the clicked item
+                    content.classList.toggle('open');
+                    header.classList.toggle('open');
+                });
             });
 
-            showSection(window.location.hash);
+            // Smooth scroll for "View Project" buttons
+            const scrollButtons = document.querySelectorAll('.scroll-to-project-btn');
+            scrollButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent accordion from closing
+                    const targetId = button.dataset.target;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // First, ensure the projects tab is active
+                        showSection('#projects');
+                        // Then, scroll to the element
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100); // A small delay ensures the section is visible before scrolling
+                    }
+                });
+            });
         });
     </script>
 
