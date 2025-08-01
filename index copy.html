@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kieran Saunders - PhD Candidate</title>
+    <!-- Favicon for the browser tab -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            scroll-behavior: smooth;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link.active {
+            color: #1d4ed8;
+            border-bottom: 2px solid #1d4ed8;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .blue {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 4px solid #1d4ed8;
+            z-index: 10;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0.75rem;
+            width: 2px;
+            height: 100%;
+            background-color: #d1d5db;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .timeline-branch {
+            padding-left: 2.5rem;
+            position: relative;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .timeline-branch::before {
+            content: '';
+            position: absolute;
+            left: -1.9rem;
+            top: 1.1rem;
+            width: 2rem;
+            height: 2px;
+            background-color: #d1d5db;
+        }
+        /* Accordion Styles for News Section */
+        .news-item-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 1rem;
+        }
+        .news-item-content.open {
+            max-height: 500px;
+            padding: 1rem 1rem 1rem 2.5rem;
+        }
+        .news-item-header .arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+        .news-item-header.open .arrow {
+            transform: rotate(90deg);
+        }
+        .aspect-w-16 { position: relative; padding-bottom: 56.25%; }
+        .aspect-h-9 { height: 0; }
+        .aspect-w-16 > iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+        
+        <header class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Kieran Saunders</h1>
+                    <p class="text-sm sm:text-md text-gray-600">PhD Candidate in Computer Vision</p>
+                </div>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6">
+                        <li><a href="#about" class="nav-link pb-1 font-medium text-gray-600 hover:text-blue-600">About Me</a></li>
+                        <li><a href="#news" class="nav-link pb-1 font-medium text-gray-600 hover:text-blue-600">News</a></li>
+                        <li><a href="#demos" class="nav-link pb-1 font-medium text-gray-600 hover:text-blue-600">Demos</a></li>
+                        <li><a href="#projects" class="nav-link pb-1 font-medium text-gray-600 hover:text-blue-600">Projects</a></li>
+                        <li><a href="assets/Kieran_Saunders_CV.pdf" target="_blank" class="nav-link pb-1 font-medium text-gray-600 hover:text-blue-600">CV</a></li>
+                        <li><a href="#contact" class="nav-link pb-1 font-medium text-gray-600 hover:text-blue-600">Contact</a></li>
+                    </ul>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 hover:text-blue-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-50 p-6 transition-transform transform duration-300 ease-in-out">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">Navigation</h2>
+                <button id="close-menu-button" class="text-gray-800 hover:text-blue-600">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <nav>
+                <ul class="flex flex-col space-y-4 text-lg">
+                    <li><a href="#about" class="nav-link block py-2 hover:text-blue-600">About Me</a></li>
+                    <li><a href="#news" class="nav-link block py-2 hover:text-blue-600">News</a></li>
+                    <li><a href="#demos" class="nav-link block py-2 hover:text-blue-600">Demos</a></li>
+                    <li><a href="#projects" class="nav-link block py-2 hover:text-blue-600">Projects</a></li>
+                    <li><a href="assets/Kieran_Saunders_CV.pdf" target="_blank" class="nav-link block py-2 hover:text-blue-600">CV</a></li>
+                    <li><a href="#contact" class="nav-link block py-2 hover:text-blue-600">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <main>
+            <!-- About Me Section -->
+            <section id="about" class="section bg-white rounded-lg shadow-md p-8">
+                <div class="flex flex-col md:flex-row items-start gap-8">
+                    <div class="w-full md:w-1/3 flex-shrink-0">
+                        <img src="assets/kieran_avatar.JPG" alt="Kieran Saunders" class="rounded-lg shadow-lg w-full">
+                    </div>
+                    <div class="prose max-w-none">
+                        <h2 class="text-2xl font-bold mb-4">My Story</h2>
+                        <p>I'm Kieran Saunders, a PhD candidate at <span class="blue">Aston University</span>, fuelled by a fascination for how we can infer the 3D structure of our world from images. My academic path began with a BSc in Mathematics, also from Aston, which provided the analytical toolkit I now apply to the dynamic field of computer vision. For the past six years, I've been immersed in this area, specifically focusing on the challenge of estimating depth using only a single camera (monocular depth estimation).</p>
+                        <p>My research delves into <strong>self-supervised learning</strong>: a powerful paradigm that allows neural networks to learn about depth without needing explicit ground truth depth data. This approach unlocks scalability and adaptability, crucial for real-world deployment.</p>
+                        <p>My primary research goal is to develop depth estimation systems that are not only accurate but also <strong>robust</strong> and <strong>reliable</strong> across diverse and challenging conditions. The potential impact spans autonomous navigation, realistic virtual and augmented reality experiences, and advanced robotic perception.</p>
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold mb-8 text-center">My Journey: From Mathematics to Vision</h3>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-lg text-blue-700">BSc in Mathematics</h4>
+                            <p class="text-sm text-gray-600">Established a strong foundation in analytical and logical reasoning, setting the stage for a career in a technical field.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-lg text-blue-700">PhD in Computer Vision</h4>
+                            <p class="text-sm text-gray-600">Deep dive into Self-Supervised Monocular Depth Estimation, turning 2D images into 3D understanding.</p>
+                            <div class="mt-4 space-y-2">
+                                <div class="timeline-branch">
+                                    <div class="font-semibold"><i class="fas fa-robot mr-2 text-blue-500"></i>Dyna-DM (ICARSC 2023)</div>
+                                    <p class="text-sm text-gray-600 ml-7">First steps in handling dynamic objects in scenes.</p>
+                                </div>
+                                <div class="timeline-branch">
+                                    <div class="font-semibold"><i class="fas fa-cloud-sun-rain mr-2 text-blue-500"></i>Robust-Depth (ICCV 2023)</div>
+                                    <p class="text-sm text-gray-600 ml-7">Improving model robustness to adverse weather conditions.</p>
+                                </div>
+                                <div class="timeline-branch">
+                                    <div class="font-semibold"><i class="fas fa-arrows-alt-h mr-2 text-blue-500"></i>BaseBoostDepth (BMVC 2024)</div>
+                                     <p class="text-sm text-gray-600 ml-7">Leveraging larger baselines for state-of-the-art accuracy.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="timeline-item">
+                            <h4 class="font-bold text-lg text-blue-700">Future Work</h4>
+                            <p class="text-sm text-gray-600">Continuing to push the frontiers of 3D perception, with new work in robotic grasping (<span class="font-semibold">GRASP3R</span>) and beyond. More to come!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Section -->
+            <section id="news" class="section bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6">Highlights & News</h2>
+                <ul class="space-y-2">
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <p class="font-semibold">Presented BaseBoostDepth (BMVC'24) in Glasgow, Scotland! 🏴󠁧󠁢󠁳󠁣󠁴󠁿</p>
+                                    <p class="text-sm text-gray-500">Nov 2024</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">This work introduces a novel training strategy to leverage larger temporal baselines for improved depth accuracy, achieving state-of-the-art results.</p>
+                            <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-baseboost">View Project Details</button>
+                        </div>
+                    </li>
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <p class="font-semibold">Showcased Robust-Depth (ICCV'23) in Paris, France! 🇫🇷</p>
+                                    <p class="text-sm text-gray-500">Jul 2023</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">This paper enhances model resilience to adverse weather and visual conditions via a novel augmentation-based pseudo-supervision technique.</p>
+                            <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-robustdepth">View Project Details</button>
+                        </div>
+                    </li>
+                    <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <p class="font-semibold">Orally presented Dyna-DM (ICARSC'23) in Tomar, Portugal! 🇵🇹</p>
+                                    <p class="text-sm text-gray-500">Mar 2023</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">This research focussed on improving depth estimation in dynamic scenes by identifying and handling moving objects, a critical challenge in real-world applications.</p>
+                            <button class="scroll-to-project-btn mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" data-target="#project-dynadm">View Project Details</button>
+                        </div>
+                    </li>
+                     <li class="border-b border-gray-200 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-award"></i></span>
+                                <div>
+                                    <p class="font-semibold">Awarded Department Prize in Mathematics</p>
+                                    <p class="text-sm text-gray-500">Aston University</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">Achieved the highest overall grade in the department, recognising outstanding academic performance across all modules.</p>
+                            <ul class="text-sm mt-2 list-disc list-inside">
+                                <li><span class="font-semibold">Overall Grade:</span> 87%</li>
+                                <li><span class="font-semibold">Degree Classification:</span> First Class Honours</li>
+                            </ul>
+                        </div>
+                    </li>
+                     <li class="border-b-0 pb-2">
+                        <div class="news-item-header flex justify-between items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-4 mt-1"><i class="fas fa-award"></i></span>
+                                <div>
+                                    <p class="font-semibold">Awarded Final Year Project Prize</p>
+                                    <p class="text-sm text-gray-500">Aston University</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right arrow text-gray-500"></i>
+                        </div>
+                        <div class="news-item-content bg-gray-50 rounded-b-md">
+                            <p class="text-sm text-gray-700">Recognised for the most outstanding final year project, which laid the groundwork for my subsequent PhD research.</p>
+                             <ul class="text-sm mt-2 list-disc list-inside">
+                                <li><span class="font-semibold">Project Title:</span> Self-supervised Monocular Depth Estimation (handling dynamic objects).</li>
+                                <li>This project directly inspired the research for the <span class="font-semibold">Dyna-DM</span> paper.</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Demos Section -->
+            <section id="demos" class="section bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6">Visual Demos</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2">BaseBoostDepth</h3>
+                        <p class="text-sm text-gray-600 mb-4">Demonstration of improved depth accuracy and detail by leveraging larger temporal baselines.</p>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+                            <iframe src="https://www.youtube-nocookie.com/embed/QbDem7nnbbY" title="YouTube video player for BaseBoostDepth" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm" data-target="#project-baseboost">View Full Project</button>
+                    </div>
+                    <div class="p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2">Robust-Depth</h3>
+                        <p class="text-sm text-gray-600 mb-4">Showcasing model resilience to adverse weather conditions like rain, fog, and night-time.</p>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+                            <iframe src="https://www.youtube-nocookie.com/embed/zGXzpJAWjcQ" title="YouTube video player for RobustDepth" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm" data-target="#project-robustdepth">View Full Project</button>
+                    </div>
+                    <div class="p-6 rounded-lg border border-gray-200 bg-gray-50">
+                        <h3 class="text-xl font-semibold mb-2">Dyna-DM</h3>
+                        <p class="text-sm text-gray-600 mb-4">Handling dynamic objects in complex scenes for more reliable depth estimation.</p>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg bg-gray-200 flex items-center justify-center">
+                            <p class="text-gray-500">Animation coming soon!</p>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed" data-target="#project-dynadm">View Full Project</button>
+                    </div>
+                    <div class="p-6 rounded-lg border border-gray-200 bg-gray-50">
+                        <h3 class="text-xl font-semibold mb-2">GRASP3R</h3>
+                        <p class="text-sm text-gray-600 mb-4">End-to-end 7-DoF robotic grasping using only uncalibrated RGB images.</p>
+                         <div class="aspect-w-16 aspect-h-9 rounded-lg bg-gray-200 flex items-center justify-center">
+                            <p class="text-gray-500">Animation coming soon!</p>
+                        </div>
+                        <button class="scroll-to-project-btn mt-4 w-full bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed" data-target="#project-grasper">View Full Project</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="section bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6">Research & Publications</h2>
+                <div class="space-y-10">
+                    <div id="project-grasper" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis</p>
+                                <!-- <p class="text-sm text-gray-500 mt-1">In Submission to BMVC 2025</p> -->
+                                <div class="mt-4 space-x-2">
+                                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Paper (Coming Soon)</button>
+                                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Project Page</button>
+                                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md text-sm cursor-not-allowed">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Robotic grasping methods often require expensive depth sensors and camera calibration, limiting real-world viability.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> Jointly learns 3D scene reconstruction and grasp prediction, enabling collision checking from vision alone.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Sets a new SOTA for RGB-only, calibration-free grasping, achieving competitive performance on the GraspNet-1Billion benchmark.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project-baseboost" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">BaseBoostDepth: Exploiting Larger Baselines For Self-supervised Monocular Depth Estimation</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, Luis J. Manso, George Vogiatzis</p>
+                                <p class="text-sm text-gray-500 mt-1">British Machine Vision Conference (BMVC) 2024</p>
+                                <div class="mt-4 space-x-2">
+                                   <button onclick="window.open('https://bmva-archive.org.uk/bmvc/2024/papers/Paper_210/paper.pdf','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
+                                   <button onclick="window.open('https://kieran514.github.io/BaseBoostDepth-Project/','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Project Page</button>
+                                   <button onclick="window.open('https://github.com/kieran514/baseboostdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Self-supervised methods fail to use large baselines, missing out on strong geometric cues for depth due to challenges like pose drift.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> A curriculum learning-inspired strategy to train the network progressively on wider frame separations.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> Incremental Pose Estimation to correct drift and Error-Induced Reconstructions to improve robustness.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Achieved SOTA on KITTI and SYNS-patches datasets across multiple metrics without increasing test-time complexity.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project-robustdepth" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">Self-supervised Monocular Depth Estimation: Let's Talk About The Weather</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
+                                <p class="text-sm text-gray-500 mt-1">IEEE/CVF International Conference on Computer Vision (ICCV) 2023</p>
+                                <div class="mt-4 space-x-2">
+                                   <button onclick="window.open('https://openaccess.thecvf.com/content/ICCV2023/papers/Saunders_Self-supervised_Monocular_Depth_Estimation_Lets_Talk_About_The_Weather_ICCV_2023_paper.pdf','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
+                                   <button onclick="window.open('https://kieran514.github.io/Robust-Depth-Project/','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Project Page</button>
+                                   <button onclick="window.open('https://github.com/kieran514/robustdepth','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Models trained on clear-weather data fail in real-world adverse conditions like rain, fog, or night.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> A bi-directional, pseudo-supervision loss exploiting consistency between augmented and unaugmented views.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> "Semi-augmented warping" to isolate the depth learning task from noisy pose estimations in augmented data.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Significantly surpasses SOTA on adverse condition datasets (DrivingStereo, Foggy CityScape, NuScenes-Night) while maintaining performance on KITTI.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project-dynadm" class="p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps</h3>
+                                <p class="text-md text-gray-600 italic mt-1">Kieran Saunders, George Vogiatzis, Luis J. Manso</p>
+                                <p class="text-sm text-gray-500 mt-1">International Conference on Autonomous Robot Systems and Competitions (ICARSC) 2023</p>
+                                <div class="mt-4 space-x-2">
+                                   <button onclick="window.open('https://arxiv.org/pdf/2206.03799','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Paper</button>
+                                   <button onclick="window.open('https://github.com/kieran514/Dyna-DM','_blank')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm">Code</button>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-semibold text-blue-800 mb-2">Technical Snapshot</h4>
+                                <p class="text-sm text-gray-700 mb-3"><strong class="text-gray-900">Problem:</strong> Estimating motion for all potentially dynamic objects is computationally wasteful and can introduce errors if they are static.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> An efficient appearance-based filter (using Dice coefficient) to identify "truly dynamic" objects, ignoring static ones.</li>
+                                    <li><i class="fas fa-lightbulb text-yellow-500 w-4"></i> <strong class="text-gray-900">Key Innovation:</strong> Showed that disregarding small, distant objects from motion estimation improves both performance and efficiency.</li>
+                                    <li><i class="fas fa-chart-line text-green-500 w-4"></i> <strong class="text-gray-900">Impact:</strong> Improved depth accuracy over prior dynamic-aware methods while reducing GPU memory usage by over 29%.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6">Get In Touch</h2>
+                <p class="mb-6">I'm always open to discussing research, potential collaborations, or interesting ideas in computer vision and beyond.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Email</h3>
+                        <p><i class="fas fa-envelope mr-2 text-blue-500"></i><a href="mailto:190229315@aston.ac.uk" class="text-blue-600 hover:underline">190229315@aston.ac.uk</a></p>
+                        <h3 class="text-lg font-semibold mt-6 mb-2">Professional Profiles</h3>
+                        <ul class="space-y-2">
+                            <li><i class="fab fa-github mr-2 text-blue-500"></i><a href="https://github.com/kieran514" target="_blank" class="text-blue-600 hover:underline">GitHub</a></li>
+                            <li><i class="fab fa-linkedin mr-2 text-blue-500"></i><a href="https://www.linkedin.com/in/kieran-saunders-6a5a801a3/" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a></li>
+                             <li><i class="fas fa-graduation-cap mr-2 text-blue-500"></i><a href="https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en" target="_blank" class="text-blue-600 hover:underline">Google Scholar</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">University Address</h3>
+                        <address class="not-italic">
+                            <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
+                            School of Computer Science and Digital Engineering<br>
+                            Aston University<br>
+                            Aston St<br>
+                            Birmingham, B4 7ET<br>
+                            United Kingdom
+                        </address>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Section navigation logic
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function showSection(hash) {
+                const id = (hash || '#about').substring(1);
+                let sectionFound = false;
+                sections.forEach(section => {
+                    if (section.id === id) {
+                        section.classList.add('active');
+                        sectionFound = true;
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+                if (!sectionFound) {
+                    document.getElementById('about').classList.add('active');
+                }
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href').startsWith('#') && link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+
+            // Accordion logic for News section
+            const newsHeaders = document.querySelectorAll('.news-item-header');
+            newsHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const isOpen = content.classList.contains('open');
+                    document.querySelectorAll('.news-item-content.open').forEach(openContent => {
+                        if (openContent !== content) {
+                            openContent.classList.remove('open');
+                            openContent.previousElementSibling.classList.remove('open');
+                        }
+                    });
+                    content.classList.toggle('open');
+                    header.classList.toggle('open');
+                });
+            });
+
+            // Smooth scroll for "View Project" buttons
+            const scrollButtons = document.querySelectorAll('.scroll-to-project-btn');
+            scrollButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    const targetId = button.dataset.target;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        showSection('#projects');
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100); 
+                    }
+                });
+            });
+
+            // --- MOBILE MENU LOGIC ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+            });
+
+            closeMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+
+            // Add click listeners to all nav links (desktop and mobile)
+            navLinks.forEach(link => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const hash = this.getAttribute('href');
+                        history.pushState(null, null, hash);
+                        showSection(hash);
+                        // If mobile menu is open, close it
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+
+            window.addEventListener('popstate', () => showSection(window.location.hash));
+            showSection(window.location.hash);
+        });
+    </script>
+
+</body>
+</html>

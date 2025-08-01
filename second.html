@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kieran Saunders - 3D Perception Researcher</title>
+    <!-- Favicon for the browser tab -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --text-primary: #f0f0f0;
+            --accent: #ff6a3d;
+            --accent-dark: #e65c31;
+            /* Gradient colors for scrolling effect */
+            --gradient-start: #1a1a1a;
+            --gradient-mid: #4a2a2a;
+            --gradient-end: #1a1a1a;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Noto Serif JP', serif;
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(to bottom, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            color: var(--text-primary);
+            transition: background-color 0.5s ease;
+        }
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: white;
+        }
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .accent-text { color: var(--accent); }
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-dark);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        /* Accordion Styles */
+        .news-item-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding-top 0.5s ease-in-out;
+            padding-top: 0;
+        }
+        .news-item-content.open {
+            max-height: 500px; /* Adjust as needed */
+            padding-top: 1rem;
+        }
+        .news-item-header .arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+        .news-item-header.open .arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+    <!-- HEADER -->
+    <header id="header" class="sticky top-0 z-40 transition-all duration-300">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="font-sans font-extrabold text-xl text-white">Kieran Saunders</div>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8 font-sans font-semibold text-sm">
+                        <li><a href="#mission" class="nav-link pb-1">Mission</a></li>
+                        <li><a href="#projects" class="nav-link pb-1">Projects</a></li>
+                        <li><a href="#strengths" class="nav-link pb-1">Strengths</a></li>
+                        <li><a href="#demos" class="nav-link pb-1">Demos</a></li>
+                        <li><a href="#milestones" class="nav-link pb-1">Milestones</a></li>
+                        <li><a href="#contact" class="nav-link pb-1">Contact</a></li>
+                    </ul>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-200 hover:text-orange-400 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black/95 z-50 p-6">
+        <div class="flex justify-end mb-8">
+            <button id="close-menu-button" class="text-gray-200 hover:text-orange-400">
+                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav>
+            <ul class="flex flex-col items-center justify-center space-y-8 text-2xl font-sans font-bold h-full -mt-16">
+                <li><a href="#mission" class="nav-link-mobile">Mission</a></li>
+                <li><a href="#projects" class="nav-link-mobile">Projects</a></li>
+                <li><a href="#strengths" class="nav-link-mobile">Strengths</a></li>
+                <li><a href="#demos" class="nav-link-mobile">Demos</a></li>
+                <li><a href="#milestones" class="nav-link-mobile">Milestones</a></li>
+                <li><a href="#contact" class="nav-link-mobile">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- HERO BANNER -->
+        <section id="hero" class="h-[60vh] md:h-[80vh] flex items-center justify-center text-center rounded-lg overflow-hidden my-8 relative">
+            <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+            <img src="https://images.pexels.com/photos/2310641/pexels-photo-2310641.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Japanese temple with a sunset background" class="absolute inset-0 w-full h-full object-cover">
+            <div class="relative z-20 p-4">
+                <h1 class="text-4xl md:text-7xl font-bold text-white font-sans leading-tight">Crafting the Future of 3D Perception</h1>
+                <p class="mt-4 text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto">I build robust, scalable vision systems that bridge the gap between 2D images and real-world understanding.</p>
+            </div>
+        </section>
+
+        <!-- MISSION STATEMENT -->
+        <section id="mission" class="section max-w-4xl mx-auto text-center my-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">My Mission</h2>
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-300">
+                The next generation of AR and robotics depends on systems that work reliably in the wild, not just in the lab. My research in <strong class="accent-text">self-supervised learning</strong> is dedicated to solving this challenge. I create models that learn from vast amounts of unlabeled data, making them inherently more <strong class="accent-text">robust and scalable</strong>—ready for the complexities of real-world application.
+            </p>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="section my-24">
+            <h2 class="text-4xl font-bold font-sans text-center mb-12">Research & Publications</h2>
+            <div id="projects-container" class="space-y-16">
+                <!-- Projects will be dynamically populated here -->
+            </div>
+        </section>
+
+        <!-- CORE STRENGTHS -->
+        <section id="strengths" class="section my-24">
+            <h2 class="text-4xl font-bold font-sans text-center mb-12">Core Strengths</h2>
+            <div id="strengths-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Strengths will be dynamically populated here -->
+            </div>
+        </section>
+
+        <!-- DEMOS -->
+        <section id="demos" class="section my-24">
+            <h2 class="text-4xl font-bold font-sans text-center mb-12">Visual Demos</h2>
+            <div id="demos-container" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Demos will be dynamically populated here -->
+            </div>
+        </section>
+
+        <!-- MILESTONES -->
+        <section id="milestones" class="section my-24">
+            <h2 class="text-4xl font-bold font-sans text-center mb-12">Career & Milestones</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-center font-sans">My Journey</h3>
+                    <div id="journey-timeline" class="relative pl-8">
+                         <!-- Journey items will be populated here -->
+                    </div>
+                </div>
+                <div>
+                     <h3 class="text-2xl font-bold mb-6 text-center font-sans">Highlights & Awards</h3>
+                     <ul id="news-list" class="space-y-4">
+                        <!-- News items will be populated here -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="section text-center my-24 py-16 bg-gray-900/50 rounded-lg">
+            <h2 class="text-4xl font-bold font-sans">Let's Build Together</h2>
+            <p class="mt-4 mb-8 max-w-2xl mx-auto text-gray-300">I'm always open to discussing ambitious research, collaborations, or interesting ideas in computer vision. Feel free to reach out.</p>
+            <div class="flex justify-center items-center space-x-6">
+                <a href="mailto:190229315@aston.ac.uk" class="text-gray-300 hover:accent-text transition-colors duration-300 text-4xl"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/kieran514" target="_blank" class="text-gray-300 hover:accent-text transition-colors duration-300 text-4xl"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/kieran-saunders-6a5a801a3/" target="_blank" class="text-gray-300 hover:accent-text transition-colors duration-300 text-4xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en" target="_blank" class="text-gray-300 hover:accent-text transition-colors duration-300 text-4xl"><i class="fas fa-graduation-cap"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- DATA ---
+        const strengthsData = [
+            { icon: 'fa-brain', title: 'Self-Supervised Learning', description: 'Pioneering methods that learn from unlabeled video, reducing data dependency and enabling large-scale training.' },
+            { icon: 'fa-cube', title: '3D Computer Vision', description: 'Expertise in transforming 2D images into rich 3D understanding, specializing in monocular depth estimation.' },
+            { icon: 'fa-shield-alt', title: 'Model Robustness', description: 'Developing models that perform reliably in challenging conditions like adverse weather and dynamic scenes.' },
+            { icon: 'fa-robot', title: 'Robotic Perception', description: 'Bridging vision and action with end-to-end systems for complex tasks like robotic grasping from RGB data.' },
+            { icon: 'fa-layer-group', title: 'Deep Learning', description: 'Architecting and training complex neural networks with a deep understanding of modern frameworks like PyTorch.' },
+            { icon: 'fa-film', title: 'Visual Communication', description: 'Creating clear, animated videos to effectively demonstrate and explain complex research concepts and results.' }
+        ];
+
+        const projectsData = [
+            { id: "project-grasper", title: "GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping", authors: "Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis", conference: "", links: { paper: null, page: null, code: null }, snapshot: { problem: "Robotic grasping methods often require expensive depth sensors and camera calibration, limiting real-world viability.", innovations: ["An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors.", "Jointly learns 3D scene reconstruction and grasp prediction, enabling collision checking from vision alone."], impact: "Sets a new SOTA for RGB-only, calibration-free grasping, achieving competitive performance on the GraspNet-1Billion benchmark." }},
+            { id: "project-baseboost", title: "BaseBoostDepth: Exploiting Larger Baselines For Self-supervised Monocular Depth Estimation", authors: "Kieran Saunders, Luis J. Manso, George Vogiatzis", conference: "British Machine Vision Conference (BMVC) 2024", links: { paper: "https://bmva-archive.org.uk/bmvc/2024/papers/Paper_210/paper.pdf", page: "https://kieran514.github.io/BaseBoostDepth-Project/", code: "https://github.com/kieran514/baseboostdepth" }, snapshot: { problem: "Self-supervised methods fail to use large baselines, missing out on strong geometric cues for depth due to challenges like pose drift.", innovations: ["A curriculum learning-inspired strategy to train the network progressively on wider frame separations.", "Incremental Pose Estimation to correct drift and Error-Induced Reconstructions to improve robustness."], impact: "Achieved SOTA on KITTI and SYNS-patches datasets across multiple metrics without increasing test-time complexity." }},
+            { id: "project-robustdepth", title: "Self-supervised Monocular Depth Estimation: Let's Talk About The Weather", authors: "Kieran Saunders, George Vogiatzis, Luis J. Manso", conference: "IEEE/CVF International Conference on Computer Vision (ICCV) 2023", links: { paper: "https://openaccess.thecvf.com/content/ICCV2023/papers/Saunders_Self-supervised_Monocular_Depth_Estimation_Lets_Talk_About_The_Weather_ICCV_2023_paper.pdf", page: "https://kieran514.github.io/Robust-Depth-Project/", code: "https://github.com/kieran514/robustdepth" }, snapshot: { problem: "Models trained on clear-weather data fail in real-world adverse conditions like rain, fog, or night.", innovations: ["A bi-directional, pseudo-supervision loss exploiting consistency between augmented and unaugmented views.", '"Semi-augmented warping" to isolate the depth learning task from noisy pose estimations in augmented data.'], impact: "Significantly surpasses SOTA on adverse condition datasets (DrivingStereo, Foggy CityScape, NuScenes-Night) while maintaining performance on KITTI." }},
+            { id: "project-dynadm", title: "Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps", authors: "Kieran Saunders, George Vogiatzis, Luis J. Manso", conference: "International Conference on Autonomous Robot Systems and Competitions (ICARSC) 2023", links: { paper: "https://arxiv.org/pdf/2206.03799", page: null, code: "https://github.com/kieran514/Dyna-DM" }, snapshot: { problem: "Estimating motion for all potentially dynamic objects is computationally wasteful and can introduce errors if they are static.", innovations: ["An efficient appearance-based filter (using Dice coefficient) to identify 'truly dynamic' objects, ignoring static ones.", "Showed that disregarding small, distant objects from motion estimation improves both performance and efficiency."], impact: "Improved depth accuracy over prior dynamic-aware methods while reducing GPU memory usage by over 29%." }}
+        ];
+
+        const demosData = [
+            { title: "BaseBoostDepth", description: "Demonstration of improved depth accuracy and detail by leveraging larger temporal baselines.", videoId: "QbDem7nnbbY", active: true },
+            { title: "Robust-Depth", description: "Showcasing model resilience to adverse weather conditions like rain, fog, and night-time.", videoId: "zGXzpJAWjcQ", active: true }
+        ];
+
+        const journeyData = [
+            { title: "BSc in Mathematics", description: "Established a strong foundation in analytical and logical reasoning." },
+            { title: "PhD in Computer Vision", description: "Deep dive into Self-Supervised Monocular Depth Estimation." },
+            { title: "Future Work", description: "Pushing the frontiers of 3D perception in robotic grasping and beyond." }
+        ];
+        
+        const newsData = [
+            { icon: 'fa-trophy', title: "Presented BaseBoostDepth (BMVC'24)", date: "Nov 2024", content: "This work introduces a novel training strategy to leverage larger temporal baselines for improved depth accuracy, achieving state-of-the-art results." },
+            { icon: 'fa-trophy', title: "Showcased Robust-Depth (ICCV'23)", date: "Jul 2023", content: "This paper enhances model resilience to adverse weather and visual conditions via a novel augmentation-based pseudo-supervision technique." },
+            { icon: 'fa-trophy', title: "Orally presented Dyna-DM (ICARSC'23)", date: "Mar 2023", content: "This research focussed on improving depth estimation in dynamic scenes by identifying and handling moving objects, a critical challenge in real-world applications." },
+            { icon: 'fa-award', title: "Awarded Department Prize in Mathematics", date: "Aston University", content: "Achieved the highest overall grade in the department, recognising outstanding academic performance across all modules." },
+            { icon: 'fa-award', title: "Awarded Final Year Project Prize", date: "Aston University", content: "Recognised for the most outstanding final year project, which laid the groundwork for my subsequent PhD research." }
+        ];
+
+        // --- DYNAMIC CONTENT INJECTION ---
+        const projectsContainer = document.getElementById('projects-container');
+        projectsData.forEach(proj => {
+            const div = document.createElement('div');
+            div.id = proj.id;
+            div.className = "p-8 rounded-lg bg-gray-900/50 border border-gray-800 transition-all duration-300 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-900/20";
+            
+            let linksHTML = '';
+            const btnClass = "font-sans font-semibold px-5 py-2 rounded-md text-sm";
+            if(proj.links.paper) linksHTML += `<a href="${proj.links.paper}" target="_blank" class="btn-primary ${btnClass}">Paper</a>`;
+            if(proj.links.page) linksHTML += `<a href="${proj.links.page}" target="_blank" class="btn-secondary ${btnClass}">Project Page</a>`;
+            if(proj.links.code) linksHTML += `<a href="${proj.links.code}" target="_blank" class="btn-secondary ${btnClass}">Code</a>`;
+            if(!proj.links.paper && !proj.links.page && !proj.links.code) linksHTML = `<span class="bg-gray-700 text-gray-400 px-4 py-2 rounded-md text-sm cursor-not-allowed ${btnClass}">Coming Soon</span>`;
+
+            div.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="lg:col-span-1">
+                        <h3 class="text-2xl font-bold font-sans text-white">${proj.title}</h3>
+                        <p class="text-md text-gray-400 italic my-2">${proj.authors}</p>
+                        <p class="text-sm text-gray-500 font-sans">${proj.conference}</p>
+                        <div class="mt-6 flex space-x-4">${linksHTML}</div>
+                    </div>
+                    <div class="bg-black/30 p-6 rounded-lg border border-gray-700">
+                        <h4 class="font-semibold accent-text mb-3 font-sans">Technical Snapshot</h4>
+                        <p class="text-sm text-gray-300 mb-4"><strong class="text-white">Problem:</strong> ${proj.snapshot.problem}</p>
+                        <ul class="space-y-3 text-sm">
+                            ${proj.snapshot.innovations.map(inn => `<li><i class="fas fa-lightbulb text-yellow-400 w-5 mr-2"></i><strong class="text-white">Innovation:</strong> <span class="text-gray-300">${inn}</span></li>`).join('')}
+                            <li><i class="fas fa-chart-line text-green-400 w-5 mr-2"></i><strong class="text-white">Impact:</strong> <span class="text-gray-300">${proj.snapshot.impact}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            projectsContainer.appendChild(div);
+        });
+
+        const strengthsContainer = document.getElementById('strengths-container');
+        strengthsData.forEach(item => {
+            const div = document.createElement('div');
+            // Adjust grid columns for 6 items: 2 on small, 3 on medium+
+            div.className = "bg-gray-900/50 p-6 rounded-lg border border-gray-800 text-center transition-transform hover:-translate-y-2";
+            div.innerHTML = `
+                <i class="fas ${item.icon} text-4xl accent-text mb-4"></i>
+                <h3 class="text-xl font-bold mb-2 font-sans">${item.title}</h3>
+                <p class="text-sm text-gray-400">${item.description}</p>
+            `;
+            strengthsContainer.appendChild(div);
+        });
+
+        const demosContainer = document.getElementById('demos-container');
+        demosData.forEach(demo => {
+            const div = document.createElement('div');
+            div.className = "bg-gray-900/50 p-6 rounded-lg border border-gray-800 flex flex-col";
+            let mediaHTML = demo.videoId 
+                ? `<div class="w-full aspect-video rounded-lg overflow-hidden shadow-md"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${demo.videoId}" title="YouTube video player for ${demo.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+                : `<div class="w-full aspect-video rounded-lg bg-black/30 flex items-center justify-center"><p class="text-gray-400">Animation coming soon!</p></div>`;
+            div.innerHTML = `
+                <h3 class="text-xl font-semibold mb-2 text-white font-sans">${demo.title}</h3>
+                <p class="text-sm text-gray-400 mb-4">${demo.description}</p>
+                ${mediaHTML}
+            `;
+            demosContainer.appendChild(div);
+        });
+
+        const journeyContainer = document.getElementById('journey-timeline');
+        journeyData.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = "relative mb-8 pl-8";
+            // Add the timeline line using a pseudo-element
+            div.innerHTML = `
+                <div class="absolute w-5 h-5 bg-orange-500 rounded-full mt-1.5 -left-2.5 border-2 border-gray-800 z-10"></div>
+                ${index !== journeyData.length -1 ? '<div class="absolute top-2 -left-px h-full w-0.5 bg-gray-700"></div>' : ''}
+                <h4 class="font-bold text-lg accent-text">${item.title}</h4>
+                <p class="text-sm text-gray-400">${item.description}</p>
+            `;
+            journeyContainer.appendChild(div);
+        });
+        journeyContainer.classList.remove('pl-8', 'border-l-2', 'border-gray-700');
+
+
+        const newsList = document.getElementById('news-list');
+        newsData.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'bg-gray-900/50 border border-gray-800 rounded-lg overflow-hidden';
+            li.innerHTML = `
+                <div class="news-item-header flex justify-between items-center p-3 cursor-pointer hover:bg-gray-800/50">
+                    <div class="flex items-center">
+                        <span class="accent-text mr-4 text-lg"><i class="fas ${item.icon}"></i></span>
+                        <div>
+                            <p class="font-semibold text-white">${item.title}</p>
+                            <p class="text-sm text-gray-500 font-sans">${item.date}</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down arrow text-gray-500 transition-transform"></i>
+                </div>
+                <div class="news-item-content">
+                    <div class="p-3 pt-0 text-sm text-gray-400">
+                        ${item.content}
+                    </div>
+                </div>
+            `;
+            newsList.appendChild(li);
+        });
+
+        // --- EVENT LISTENERS & OBSERVERS ---
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const header = document.getElementById('header');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+        
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                    });
+                }
+            });
+        }, { rootMargin: "-50% 0px -50% 0px" });
+        document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
+
+        window.addEventListener('scroll', () => {
+            // Header style change on scroll
+            if (window.scrollY > 50) {
+                header.classList.add('bg-black/50', 'backdrop-blur-sm', 'shadow-lg');
+            } else {
+                header.classList.remove('bg-black/50', 'backdrop-blur-sm', 'shadow-lg');
+            }
+
+            // Scrolling gradient effect
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const midPoint = 0.5;
+            let color1 = '1a1a1a';
+            let color2 = '4a2a2a';
+            
+            let currentHex;
+            if (scrollPercent < midPoint) {
+                const percent = scrollPercent / midPoint;
+                currentHex = interpolateColor(color1, color2, percent);
+            } else {
+                const percent = (scrollPercent - midPoint) / (1 - midPoint);
+                currentHex = interpolateColor(color2, color1, percent);
+            }
+            document.body.style.setProperty('--gradient-mid', `#${currentHex}`);
+        });
+        
+        function interpolateColor(color1, color2, factor) {
+            let result = color1.slice();
+            const r1 = parseInt(color1.substring(0, 2), 16);
+            const g1 = parseInt(color1.substring(2, 4), 16);
+            const b1 = parseInt(color1.substring(4, 6), 16);
+            const r2 = parseInt(color2.substring(0, 2), 16);
+            const g2 = parseInt(color2.substring(2, 4), 16);
+            const b2 = parseInt(color2.substring(4, 6), 16);
+
+            const r = Math.round(r1 + factor * (r2 - r1)).toString(16).padStart(2, '0');
+            const g = Math.round(g1 + factor * (g2 - g1)).toString(16).padStart(2, '0');
+            const b = Math.round(b1 + factor * (b2 - b1)).toString(16).padStart(2, '0');
+            return `${r}${g}${b}`;
+        }
+
+        // Accordion for news
+        newsList.addEventListener('click', (e) => {
+            const header = e.target.closest('.news-item-header');
+            if (header) {
+                const content = header.nextElementSibling;
+                header.classList.toggle('open');
+                content.classList.toggle('open');
+            }
+        });
+
+        // --- MOBILE MENU ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
+
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+        closeMenuButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+    });
+    </script>
+</body>
+</html>
