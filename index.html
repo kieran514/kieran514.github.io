@@ -217,7 +217,7 @@
                     <div class="md:col-span-2 text-center md:text-left">
                         <h2 class="text-3xl md:text-4xl font-bold mb-6 font-sans">My Mission</h2>
                         <p class="text-xl leading-relaxed text-gray-300">
-                            The next generation of AR and robotics depends on systems that work reliably in the wild, not just in the lab. My research in <strong class="accent-text">self-supervised learning</strong> is dedicated to solving this challenge. I create models that learn from vast amounts of unlabeled data, making them inherently more <strong class="accent-text">robust and scalable</strong>—ready for the complexities of real-world application.
+                            The next generation of AR and robotics depends on systems that work reliably in the wild, not just in the lab. My research in <strong class="accent-text">self-supervised learning</strong> is dedicated to solving this challenge. I create models that learn from vast amounts of unlabeled data, making them inherently more <strong class="accent-text">robust and scalable</strong>: ready for the complexities of real-world application.
                         </p>
                     </div>
                  </div>
@@ -355,7 +355,7 @@
         // --- DATA ---
         const strengthsData = [
             { icon: 'fa-brain', title: 'Self-Supervised Learning', description: 'Pioneering methods that learn from unlabeled video, reducing data dependency and enabling large-scale training.' },
-            { icon: 'fa-cube', title: '3D Computer Vision', description: 'Expertise in transforming 2D images into rich 3D understanding, specializing in monocular depth estimation.' },
+            { icon: 'fa-cube', title: '3D Computer Vision', description: 'Expertise in transforming 2D images into rich 3D understanding, specialising in monocular depth estimation.' },
             { icon: 'fa-shield-alt', title: 'Model Robustness', description: 'Developing models that perform reliably in challenging conditions like adverse weather and dynamic scenes.' },
             { icon: 'fa-robot', title: 'Robotic Perception', description: 'Bridging vision and action with end-to-end systems for complex tasks like robotic grasping from RGB data.' },
             { icon: 'fa-layer-group', title: 'Deep Learning', description: 'Architecting and training complex neural networks with a deep understanding of modern frameworks like PyTorch.' },
@@ -363,10 +363,10 @@
         ];
 
         const publicationsData = [
-            { id: "project-grasper", title: "GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping", authors: "Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis", conference: "In Submission", links: { paper: null, page: null, code: null }, summary: "An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors and enabling collision checking from vision alone.", snapshot: { problem: "Robotic grasping methods often require expensive depth sensors and camera calibration, limiting real-world viability.", innovations: ["An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors.", "Jointly learns 3D scene reconstruction and grasp prediction, enabling collision checking from vision alone."], impact: "Sets a new SOTA for RGB-only, calibration-free grasping, achieving competitive performance on the GraspNet-1Billion benchmark." }},
-            { id: "project-baseboost", title: "BaseBoostDepth: Exploiting Larger Baselines", authors: "Kieran Saunders, Luis J. Manso, George Vogiatzis", conference: "BMVC 2024", links: { paper: "https://bmva-archive.org.uk/bmvc/2024/papers/Paper_210/paper.pdf", page: "https://kieran514.github.io/BaseBoostDepth-Project/", code: "https://github.com/kieran514/baseboostdepth" }, summary: "A curriculum learning-inspired strategy that trains a network progressively on wider frame separations to leverage stronger geometric cues for depth estimation.", snapshot: { problem: "Self-supervised methods fail to use large baselines, missing out on strong geometric cues for depth due to challenges like pose drift.", innovations: ["A curriculum learning-inspired strategy to train the network progressively on wider frame separations.", "Incremental Pose Estimation to correct drift and Error-Induced Reconstructions to improve robustness."], impact: "Achieved SOTA on KITTI and SYNS-patches datasets across multiple metrics without increasing test-time complexity." }},
-            { id: "project-robustdepth", title: "Self-supervised Monocular Depth Estimation: Let's Talk About The Weather", authors: "Kieran Saunders, George Vogiatzis, Luis J. Manso", conference: "ICCV 2023", links: { paper: "https://openaccess.thecvf.com/content/ICCV2023/papers/Saunders_Self-supervised_Monocular_Depth_Estimation_Lets_Talk_About_The_Weather_ICCV_2023_paper.pdf", page: "https://kieran514.github.io/Robust-Depth-Project/", code: "https://github.com/kieran514/robustdepth" }, summary: "A novel bi-directional, pseudo-supervision loss that significantly improves model performance in adverse weather conditions like rain, fog, or night.", snapshot: { problem: "Models trained on clear-weather data fail in real-world adverse conditions like rain, fog, or night.", innovations: ["A bi-directional, pseudo-supervision loss exploiting consistency between augmented and unaugmented views.", '"Semi-augmented warping" to isolate the depth learning task from noisy pose estimations in augmented data.'], impact: "Significantly surpasses SOTA on adverse condition datasets while maintaining performance on KITTI." }},
-            { id: "project-dynadm", title: "Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps", authors: "Kieran Saunders, George Vogiatzis, Luis J. Manso", conference: "ICARSC 2023", links: { paper: "https://arxiv.org/pdf/2206.03799", page: null, code: "https://github.com/kieran514/Dyna-DM" }, summary: "An efficient appearance-based filter to identify and handle 'truly dynamic' objects, improving depth accuracy while reducing GPU memory usage by over 29%.", snapshot: { problem: "Estimating motion for all potentially dynamic objects is computationally wasteful and can introduce errors if they are static.", innovations: ["An efficient appearance-based filter to identify 'truly dynamic' objects, ignoring static ones.", "Showed that disregarding small, distant objects from motion estimation improves both performance and efficiency."], impact: "Improved depth accuracy over prior dynamic-aware methods while reducing GPU memory usage by over 29%." }}
+            { id: "project-grasper", title: "GRASP3R: Unposed and Uncalibrated RGB Robotic Object Grasping", authors: "Kieran Saunders, Martin Rudorfer, Luis J. Manso, George Vogiatzis", conference: "In Submission", githubRepo: null, scholarCitations: 0, links: { paper: null, page: null, code: null }, summary: "An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors and enabling collision checking from vision alone.", snapshot: { problem: "Robotic grasping methods often require expensive depth sensors and camera calibration, limiting real-world viability.", innovations: ["An end-to-end model predicting 7-DoF grasps from uncalibrated RGB image pairs, removing the need for depth sensors.", "Jointly learns 3D scene reconstruction and grasp prediction, enabling collision checking from vision alone."], impact: "Sets a new SOTA for RGB-only, calibration-free grasping, achieving competitive performance on the GraspNet-1Billion benchmark." }},
+            { id: "project-baseboost", title: "BaseBoostDepth: Exploiting Larger Baselines", authors: "Kieran Saunders, Luis J. Manso, George Vogiatzis", conference: "BMVC 2024", githubRepo: "kieran514/baseboostdepth", scholarCitations: 3, links: { paper: "https://bmva-archive.org.uk/bmvc/2024/papers/Paper_210/paper.pdf", page: "https://kieran514.github.io/BaseBoostDepth-Project/", code: "https://github.com/kieran514/baseboostdepth" }, summary: "A curriculum learning-inspired strategy that trains a network progressively on wider frame separations to leverage stronger geometric cues for depth estimation.", snapshot: { problem: "Self-supervised methods fail to use large baselines, missing out on strong geometric cues for depth due to challenges like pose drift.", innovations: ["A curriculum learning-inspired strategy to train the network progressively on wider frame separations.", "Incremental Pose Estimation to correct drift and Error-Induced Reconstructions to improve robustness."], impact: "Achieved SOTA on KITTI and SYNS-patches datasets across multiple metrics without increasing test-time complexity." }},
+            { id: "project-robustdepth", title: "Self-supervised Monocular Depth Estimation: Let's Talk About The Weather", authors: "Kieran Saunders, George Vogiatzis, Luis J. Manso", conference: "ICCV 2023", githubRepo: "kieran514/robustdepth", scholarCitations: 56, links: { paper: "https://openaccess.thecvf.com/content/ICCV2023/papers/Saunders_Self-supervised_Monocular_Depth_Estimation_Lets_Talk_About_The_Weather_ICCV_2023_paper.pdf", page: "https://kieran514.github.io/Robust-Depth-Project/", code: "https://github.com/kieran514/robustdepth" }, summary: "A novel bi-directional, pseudo-supervision loss that significantly improves model performance in adverse weather conditions like rain, fog, or night.", snapshot: { problem: "Models trained on clear-weather data fail in real-world adverse conditions like rain, fog, or night.", innovations: ["A bi-directional, pseudo-supervision loss exploiting consistency between augmented and unaugmented views.", '"Semi-augmented warping" to isolate the depth learning task from noisy pose estimations in augmented data.'], impact: "Significantly surpasses SOTA on adverse condition datasets while maintaining performance on KITTI." }},
+            { id: "project-dynadm", title: "Dyna-DM: Dynamic Object-aware Self-supervised Monocular Depth Maps", authors: "Kieran Saunders, George Vogiatzis, Luis J. Manso", conference: "ICARSC 2023", githubRepo: "kieran514/Dyna-DM", scholarCitations: 8, links: { paper: "https://arxiv.org/pdf/2206.03799", page: null, code: "https://github.com/kieran514/Dyna-DM" }, summary: "An efficient appearance-based filter to identify and handle 'truly dynamic' objects, improving depth accuracy while reducing GPU memory usage by over 29%.", snapshot: { problem: "Estimating motion for all potentially dynamic objects is computationally wasteful and can introduce errors if they are static.", innovations: ["An efficient appearance-based filter to identify 'truly dynamic' objects, ignoring static ones.", "Showed that disregarding small, distant objects from motion estimation improves both performance and efficiency."], impact: "Improved depth accuracy over prior dynamic-aware methods while reducing GPU memory usage by over 29%." }}
         ];
         
         const demosData = [
@@ -385,12 +385,32 @@
         publicationsData.forEach(proj => {
             const itemDiv = document.createElement('div');
             itemDiv.className = "publication-tile content-card flex flex-col";
+            itemDiv.id = proj.id; // Add ID to the tile for easy selection
 
             let linksHTML = '';
             if(proj.links.paper) linksHTML += `<a href="${proj.links.paper}" target="_blank" class="btn btn-primary">Paper</a>`;
             if(proj.links.page) linksHTML += `<a href="${proj.links.page}" target="_blank" class="btn btn-secondary">Project Page</a>`;
             if(proj.links.code) linksHTML += `<a href="${proj.links.code}" target="_blank" class="btn btn-secondary">Code</a>`;
             if(!proj.links.paper && !proj.links.page && !proj.links.code) linksHTML = `<span class="btn bg-gray-700 text-gray-400 cursor-not-allowed">Coming Soon</span>`;
+            
+            // Generate stats HTML
+            let statsHTML = '';
+            // Only create the container if there's a repo to fetch stars for, or if there are manual citations
+            if (proj.githubRepo || proj.scholarCitations > 0) {
+                statsHTML = `
+                    <div class="flex items-center space-x-4 mt-3 text-xs font-sans text-gray-400">
+                        ${proj.githubRepo ? `
+                            <span class="github-stars-container flex items-center hover:text-white transition-colors">
+                                <i class="fab fa-github mr-1.5"></i>
+                                <span class="star-count">...</span> &nbsp;Stars
+                            </span>` : ''}
+                        ${proj.scholarCitations > 0 ? `
+                            <span class="flex items-center hover:text-white transition-colors">
+                                <i class="fas fa-graduation-cap mr-1.5"></i>
+                                ${proj.scholarCitations.toLocaleString()} Citations
+                            </span>` : ''}
+                    </div>`;
+            }
 
             itemDiv.innerHTML = `
                 <div class="publication-header cursor-pointer">
@@ -398,6 +418,7 @@
                         <div class="flex-1 pr-4">
                             <h3 class="text-xl font-bold font-sans text-white">${proj.title}</h3>
                             <span class="font-sans text-sm accent-text font-semibold">${proj.conference}</span>
+                            ${statsHTML}
                         </div>
                         <i class="fas fa-chevron-down arrow text-gray-400 text-xl pt-1"></i>
                     </div>
@@ -464,6 +485,40 @@
             else { div.innerHTML = `<div class="hidden md:block"></div>${contentHTML}`; }
             journeyContainer.appendChild(div);
         });
+        
+        // --- NEW: Function to fetch GitHub stars ---
+        async function fetchGitHubStars() {
+            // Note: GitHub API has a rate limit for unauthenticated requests (60/hour per IP).
+            // This is fine for a portfolio site but something to be aware of.
+            for (const proj of publicationsData) {
+                if (proj.githubRepo) {
+                    try {
+                        const response = await fetch(`https://api.github.com/repos/${proj.githubRepo}`);
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        const data = await response.json();
+                        const starCount = data.stargazers_count;
+                        
+                        // Find the specific element to update
+                        const tile = document.getElementById(proj.id);
+                        if (tile) {
+                            const starElement = tile.querySelector('.star-count');
+                            if (starElement) {
+                                starElement.textContent = starCount.toLocaleString();
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Could not fetch stars for ${proj.githubRepo}:`, error);
+                        // Optionally, hide the star count or show 'N/A' on error
+                         const tile = document.getElementById(proj.id);
+                         if(tile){
+                            const starContainer = tile.querySelector('.github-stars-container');
+                            if(starContainer) starContainer.style.display = 'none';
+                         }
+                    }
+                }
+            }
+        }
+
 
         // --- SCROLL-BASED ANIMATIONS & NAVIGATION ---
         const scrollSections = document.querySelectorAll('.section');
@@ -532,6 +587,9 @@
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
+
+        // --- INITIATE DYNAMIC CONTENT FETCH ---
+        fetchGitHubStars();
     });
     </script>
 </body>
