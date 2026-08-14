@@ -163,6 +163,27 @@
         .opt-chip text { transition: fill 0.4s ease; }
         .opt-chip rect { transition: stroke 0.4s ease, fill 0.4s ease; }
 
+        /* ---------- SIM COUNTERS ---------- */
+        /* "2,000,000" is far wider than "0", and the card width changes with both
+           the viewport and the grid's column count, so a fixed font size overflows
+           at some widths whatever value you pick. Size the number against its own
+           card instead. "2,000,000" measures ~5.4em wide in this face, so 17.5cqi
+           leaves a few px of breathing room at every width, and all four cards
+           being equal width keeps the numbers visually consistent. */
+        .counter-card { container-type: inline-size; }
+        .counter-value {
+            font-size: 1.5rem; /* fallback where container queries are unsupported */
+            line-height: 1.1;
+        }
+        @supports (container-type: inline-size) {
+            .counter-value { font-size: clamp(1rem, 17.5cqi, 3rem); }
+        }
+        /* Reclaim horizontal room on small screens, where the 2-up grid is tightest. */
+        @media (max-width: 480px) {
+            .section { padding: 4rem 1.25rem; }
+            .counter-card { padding-left: 0.75rem; padding-right: 0.75rem; }
+        }
+
         /* ---------- DEMO TILES ---------- */
         .demo-tile { cursor: zoom-in; }
         .demo-tile video {
@@ -496,20 +517,20 @@
                 </p>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="content-card">
-                        <div class="counter font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums accent-text" data-target="20000">0</div>
+                    <div class="content-card counter-card">
+                        <div class="counter counter-value font-sans font-extrabold tracking-tight tabular-nums accent-text" data-target="20000">0</div>
                         <p class="mt-2 text-sm text-gray-400 font-sans tracking-wide">scenes</p>
                     </div>
-                    <div class="content-card">
-                        <div class="counter font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums accent-text" data-target="30000">0</div>
+                    <div class="content-card counter-card">
+                        <div class="counter counter-value font-sans font-extrabold tracking-tight tabular-nums accent-text" data-target="30000">0</div>
                         <p class="mt-2 text-sm text-gray-400 font-sans tracking-wide">distinct objects</p>
                     </div>
-                    <div class="content-card">
-                        <div class="counter font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums accent-text" data-target="2000000">0</div>
+                    <div class="content-card counter-card">
+                        <div class="counter counter-value font-sans font-extrabold tracking-tight tabular-nums accent-text" data-target="2000000">0</div>
                         <p class="mt-2 text-sm text-gray-400 font-sans tracking-wide">rendered views</p>
                     </div>
-                    <div class="content-card !border-orange-500/50">
-                        <div class="font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums text-white">0</div>
+                    <div class="content-card counter-card !border-orange-500/50">
+                        <div class="counter-value font-sans font-extrabold tracking-tight tabular-nums text-white">0</div>
                         <p class="mt-2 text-sm accent-text font-sans font-semibold tracking-wide">human demonstrations</p>
                     </div>
                 </div>
