@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniversalPick: RGB-first robotic picking</title>
+    <meta name="description" content="UniversalPick is an RGB-first robotic grasping model: no CAD models, no teleoperated demonstrations, depth optional. Five real runs across two robot arms on the same weights.">
+    <link rel="icon" type="image/jpeg" href="assets/B2-v2I_b_400x400.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <meta property="og:title" content="UniversalPick: RGB-first robotic picking">
+    <meta property="og:description" content="A robot clearing a real tote end to end, picking objects it has never seen. No CAD models, no teleoperated demonstrations, depth optional.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kieransaunders.com/universalpick.html">
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "UniversalPick",
+    "author": { "@type": "Person", "name": "Kieran Saunders" },
+    "url": "https://kieransaunders.com/universalpick.html",
+    "description": "An RGB-first robotic grasping model developed at Aston University."
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent: #ff6a3d;
+            --accent-dark: #e65c31;
+            --accent-2: #3dd6ff;
+            --bg-color: #0d101c;
+            --text-primary: #f0f0f0;
+            --card-bg: rgba(20, 23, 39, 0.85);
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Noto Serif JP', serif;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s, transform 1s;
+        }
+        .section.is-visible { opacity: 1; transform: translateY(0); }
+
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .accent-text { color: var(--accent); }
+        .accent-2-text { color: var(--accent-2); }
+
+        /* Header */
+        #header { transition: background-color 0.4s ease-out, backdrop-filter 0.4s ease-out; }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -4px; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link.active, .nav-link:hover { color: white; }
+        .nav-link.active::after, .nav-link:hover::after { width: 100%; }
+
+        .content-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .content-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary { background-color: var(--accent); color: white; }
+        .btn-primary:hover { background-color: var(--accent-dark); }
+        .btn-secondary { background-color: transparent; color: var(--accent); border: 2px solid var(--accent); }
+        .btn-secondary:hover { background-color: var(--accent); color: white; }
+
+        /* ---------- HERO ---------- */
+        #hero-video {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: saturate(0.75) contrast(1.05);
+        }
+        .hero-scrim {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 45%, rgba(13,16,28,0.45) 0%, rgba(13,16,28,0.88) 70%, var(--bg-color) 100%),
+                linear-gradient(to bottom, rgba(13,16,28,0.85) 0%, rgba(13,16,28,0.25) 35%, rgba(13,16,28,0.95) 100%);
+        }
+        .hero-word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(0.35em);
+            filter: blur(6px);
+            animation: heroIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes heroIn {
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        .scroll-cue { animation: bob 2.2s ease-in-out infinite; }
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); opacity: 0.55; }
+            50% { transform: translateY(9px); opacity: 1; }
+        }
+
+        /* ---------- BOTTLENECK CARDS ---------- */
+        /* The strike is a text-decoration rather than an overlaid bar, so it
+           follows the title across however many lines it wraps to. */
+        .bottleneck { position: relative; }
+        .bottleneck h3 {
+            text-decoration-line: line-through;
+            text-decoration-color: transparent;
+            text-decoration-thickness: 2px;
+            transition: text-decoration-color 0.55s ease;
+            transition-delay: var(--d, 0s);
+        }
+        .bottleneck .stamp {
+            opacity: 0;
+            transform: rotate(-8deg) scale(1.4);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: var(--d, 0s);
+        }
+        .strikeout .bottleneck h3 { text-decoration-color: var(--accent); }
+        .strikeout .bottleneck { opacity: 0.65; }
+        .strikeout .bottleneck .stamp { opacity: 1; transform: rotate(-8deg) scale(1); }
+
+        /* ---------- PIPELINE DIAGRAM ---------- */
+        .flow { stroke-dasharray: 6 8; stroke-dashoffset: 140; }
+        .is-visible .flow { animation: flowIn 1.1s ease-out forwards, flowRun 2.6s linear 1.1s infinite; }
+        @keyframes flowIn { to { stroke-dashoffset: 0; } }
+        @keyframes flowRun { to { stroke-dashoffset: -140; } }
+
+        .fade-el { opacity: 0; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(8px); }
+        .is-visible .fade-el { opacity: 1; transform: translateY(0); }
+
+        .pc-dot { opacity: 0; }
+        .is-visible .pc-dot { animation: dotIn 0.5s ease forwards; }
+        @keyframes dotIn { to { opacity: 0.85; } }
+
+        .opt-chip text { transition: fill 0.4s ease; }
+        .opt-chip rect { transition: stroke 0.4s ease, fill 0.4s ease; }
+
+        /* ---------- DEMO TILES ---------- */
+        .demo-tile { cursor: zoom-in; }
+        .demo-tile video {
+            transition: transform 0.5s ease;
+            background: #05070d;
+        }
+        .demo-tile:hover video { transform: scale(1.03); }
+        .demo-badge {
+            background: rgba(13,16,28,0.82);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.14);
+        }
+
+        #lightbox {
+            position: fixed; inset: 0;
+            z-index: 60;
+            background: rgba(5, 7, 13, 0.94);
+            backdrop-filter: blur(8px);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox.shown { opacity: 1; }
+
+        /* ---------- CHAPTERS ---------- */
+        .chapter {
+            display: flex; gap: 0.75rem; align-items: baseline;
+            width: 100%; text-align: left;
+            padding: 0.4rem 0.6rem;
+            border-radius: 0.4rem;
+            border-left: 2px solid transparent;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+            color: #cbd0dd;
+        }
+        .chapter:hover { background: rgba(255,255,255,0.05); border-left-color: var(--accent); color: white; }
+        .chapter.active { background: rgba(255,106,61,0.12); border-left-color: var(--accent); color: white; }
+        .chapter time { color: var(--accent); font-variant-numeric: tabular-nums; }
+
+        .rule-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #8b93a7;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+            .section { opacity: 1; transform: none; }
+            .hero-word { opacity: 1; transform: none; filter: none; }
+            .flow { stroke-dashoffset: 0; }
+            .pc-dot { opacity: 0.85; }
+        }
+    </style>
+    <noscript>
+        <style>
+            .section { opacity: 1 !important; transform: none !important; }
+            .fade-el, .pc-dot { opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-40">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="font-sans font-extrabold text-lg text-white hover:accent-text transition-colors">
+                    <i class="fas fa-arrow-left text-sm mr-2"></i>Kieran Saunders
+                </a>
+                <nav class="hidden lg:block">
+                    <ul class="flex space-x-7 font-sans font-semibold text-sm text-gray-300">
+                        <li><a href="#problem" class="nav-link pb-1">Problem</a></li>
+                        <li><a href="#how" class="nav-link pb-1">How it works</a></li>
+                        <li><a href="#sim" class="nav-link pb-1">Training</a></li>
+                        <li><a href="#run" class="nav-link pb-1">See it run</a></li>
+                        <li><a href="#numbers" class="nav-link pb-1">Numbers</a></li>
+                        <li><a href="#film" class="nav-link pb-1">Film</a></li>
+                        <li><a href="#next" class="nav-link pb-1">What's next</a></li>
+                    </ul>
+                </nav>
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" aria-label="Open menu" class="text-gray-200 hover:text-orange-400 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-50 p-6">
+        <div class="flex justify-end mb-8">
+            <button id="close-menu-button" aria-label="Close menu" class="text-gray-200 hover:text-orange-400">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav>
+            <ul class="flex flex-col items-center justify-center space-y-7 text-2xl font-sans font-bold h-full -mt-20">
+                <li><a href="#problem" class="nav-link-mobile">Problem</a></li>
+                <li><a href="#how" class="nav-link-mobile">How it works</a></li>
+                <li><a href="#sim" class="nav-link-mobile">Training</a></li>
+                <li><a href="#run" class="nav-link-mobile">See it run</a></li>
+                <li><a href="#numbers" class="nav-link-mobile">Numbers</a></li>
+                <li><a href="#film" class="nav-link-mobile">Film</a></li>
+                <li><a href="#next" class="nav-link-mobile">What's next</a></li>
+                <li><a href="index.html" class="nav-link-mobile accent-text">← Back to site</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+
+        <!-- ============ HERO ============ -->
+        <section id="hero" class="relative min-h-[92vh] md:min-h-screen flex items-center justify-center text-center overflow-hidden">
+            <video id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+                <source src="assets/universalpick/overall.mp4" type="video/mp4">
+            </video>
+            <div class="hero-scrim"></div>
+
+            <div class="relative z-20 px-5 max-w-5xl">
+                <p class="rule-label mb-6 hero-word" style="animation-delay: 0.1s">Robotic manipulation · Aston University</p>
+
+                <h1 class="font-sans font-extrabold text-white leading-[0.95] text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight">
+                    <span class="hero-word" style="animation-delay: 0.25s">Universal</span><span class="hero-word accent-text" style="animation-delay: 0.4s">Pick</span>
+                </h1>
+
+                <p class="mt-8 text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed hero-word" style="animation-delay: 0.6s">
+                    A robot clearing a real tote end to end, picking objects it has never seen, with
+                    <strong class="text-white font-semibold">no CAD models</strong>,
+                    <strong class="text-white font-semibold">no teleoperated demonstrations</strong>, and
+                    <strong class="text-white font-semibold">depth optional</strong>.
+                </p>
+
+                <div class="mt-10 flex flex-wrap gap-4 justify-center hero-word" style="animation-delay: 0.8s">
+                    <a href="#run" class="btn btn-primary"><i class="fas fa-play mr-2"></i>See it run</a>
+                    <a href="#film" class="btn btn-secondary">Watch the full film</a>
+                </div>
+            </div>
+
+            <a href="#problem" aria-label="Scroll to content" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-gray-300 hover:text-white scroll-cue">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </section>
+
+        <!-- ============ PROBLEM ============ -->
+        <section id="problem" class="section">
+            <div class="container mx-auto max-w-6xl">
+                <p class="rule-label mb-4">The unsolved problem</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-6 leading-tight">
+                    Most warehouses cannot afford to automate picking.
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mb-14 leading-relaxed">
+                    Not because robot arms are expensive, but because <em class="accent-text not-italic font-semibold">everything around them</em> is.
+                    Four requirements sit between a business and a working picking cell. UniversalPick removes all four.
+                </p>
+
+                <div id="bottlenecks" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- populated by JS -->
+                </div>
+
+                <div class="mt-14 content-card border-l-4 !border-l-orange-500 max-w-3xl">
+                    <p class="text-lg md:text-xl text-gray-200 leading-relaxed">
+                        That stack is why roughly <strong class="accent-text font-sans font-bold">80%</strong> of a
+                        <strong class="accent-text font-sans font-bold">$26.5B</strong> market is locked out of automation,
+                        and why millions of dull, hazardous picking tasks are still done by hand.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ HOW IT WORKS ============ -->
+        <section id="how" class="section">
+            <div class="container mx-auto max-w-6xl">
+                <p class="rule-label mb-4">What it is</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-6 leading-tight">
+                    One engine. <span class="accent-text">RGB is the only input it requires.</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mb-12 leading-relaxed">
+                    RGB images from multiple views go in. Depth, camera rays and pose are <strong class="text-white">optional, not required</strong>.
+                    A single multi-modal engine fuses whatever it is given and returns a dense point cloud and ranked grasp vectors.
+                </p>
+
+                <div class="content-card overflow-x-auto">
+                    <svg id="pipeline" viewBox="0 0 920 360" class="w-full min-w-[720px] h-auto" role="img"
+                         aria-label="Diagram: multiple RGB views, plus optional depth, camera rays and pose, flow into the UniversalPick engine, which outputs a dense point cloud and ranked grasp vectors.">
+
+                        <defs>
+                            <linearGradient id="engineGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#ff6a3d" stop-opacity="0.22"/>
+                                <stop offset="100%" stop-color="#3dd6ff" stop-opacity="0.14"/>
+                            </linearGradient>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6a3d"/>
+                            </marker>
+                        </defs>
+
+                        <!-- ---- INPUTS: RGB views ---- -->
+                        <g class="fade-el" style="transition-delay: 0.05s">
+                            <text x="18" y="34" fill="#8b93a7" font-family="Inter, sans-serif" font-size="12" letter-spacing="2.2">REQUIRED</text>
+                            <g fill="#151a2b" stroke="#3dd6ff" stroke-width="1.5">
+                                <rect x="18" y="48"  width="132" height="52" rx="7"/>
+                                <rect x="18" y="112" width="132" height="52" rx="7"/>
+                                <rect x="18" y="176" width="132" height="52" rx="7"/>
+                            </g>
+                            <g fill="#dfe4f0" font-family="Inter, sans-serif" font-size="13" font-weight="600">
+                                <text x="40" y="79">RGB view 1</text>
+                                <text x="40" y="143">RGB view 2</text>
+                                <text x="40" y="207">RGB view 3</text>
+                            </g>
+                            <g fill="#3dd6ff">
+                                <circle cx="30" cy="74" r="3.5"/>
+                                <circle cx="30" cy="138" r="3.5"/>
+                                <circle cx="30" cy="202" r="3.5"/>
+                            </g>
+                        </g>
+
+                        <!-- ---- INPUTS: optional ---- -->
+                        <g class="fade-el" style="transition-delay: 0.25s">
+                            <text x="18" y="268" fill="#8b93a7" font-family="Inter, sans-serif" font-size="12" letter-spacing="2.2">OPTIONAL</text>
+                            <g class="opt-chip">
+                                <rect x="18"  y="282" width="88"  height="30" rx="15" fill="#11151f" stroke="#4a5266" stroke-width="1.3" stroke-dasharray="4 4"/>
+                                <text x="62"  y="302" fill="#98a0b4" font-family="Inter, sans-serif" font-size="12.5" text-anchor="middle">depth</text>
+                            </g>
+                            <g class="opt-chip">
+                                <rect x="114" y="282" width="112" height="30" rx="15" fill="#11151f" stroke="#4a5266" stroke-width="1.3" stroke-dasharray="4 4"/>
+                                <text x="170" y="302" fill="#98a0b4" font-family="Inter, sans-serif" font-size="12.5" text-anchor="middle">camera rays</text>
+                            </g>
+                            <g class="opt-chip">
+                                <rect x="234" y="282" width="76"  height="30" rx="15" fill="#11151f" stroke="#4a5266" stroke-width="1.3" stroke-dasharray="4 4"/>
+                                <text x="272" y="302" fill="#98a0b4" font-family="Inter, sans-serif" font-size="12.5" text-anchor="middle">pose</text>
+                            </g>
+                        </g>
+
+                        <!-- ---- FLOW: inputs -> engine ---- -->
+                        <g fill="none" stroke="#ff6a3d" stroke-width="2" stroke-linecap="round">
+                            <path class="flow" d="M 150 74  C 240 74, 260 150, 352 168"/>
+                            <path class="flow" d="M 150 138 C 240 138, 270 158, 352 174"/>
+                            <path class="flow" d="M 150 202 C 240 202, 260 190, 352 182"/>
+                        </g>
+                        <path class="flow" d="M 310 297 C 344 297, 350 240, 356 200" fill="none" stroke="#4a5266" stroke-width="1.6" stroke-linecap="round"/>
+
+                        <!-- ---- ENGINE ---- -->
+                        <g class="fade-el" style="transition-delay: 0.45s">
+                            <rect x="356" y="112" width="176" height="128" rx="14" fill="url(#engineGrad)" stroke="#ff6a3d" stroke-width="2"/>
+                            <text x="444" y="160" fill="#ffffff" font-family="Inter, sans-serif" font-size="17" font-weight="800" text-anchor="middle">UniversalPick</text>
+                            <text x="444" y="182" fill="#c9d0e0" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">multi-modal engine</text>
+                            <line x1="388" y1="200" x2="500" y2="200" stroke="#ff6a3d" stroke-width="1" stroke-opacity="0.45"/>
+                            <text x="444" y="219" fill="#8b93a7" font-family="Inter, sans-serif" font-size="11" text-anchor="middle" letter-spacing="1.4">SINGLE SET OF WEIGHTS</text>
+                        </g>
+
+                        <!-- ---- FLOW: engine -> outputs ---- -->
+                        <g fill="none" stroke="#ff6a3d" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)">
+                            <path class="flow" d="M 532 152 C 580 152, 596 112, 640 108"/>
+                            <path class="flow" d="M 532 200 C 580 200, 596 244, 640 250"/>
+                        </g>
+
+                        <!-- ---- OUTPUT 1: point cloud ---- -->
+                        <g class="fade-el" style="transition-delay: 0.6s">
+                            <rect x="644" y="42" width="258" height="140" rx="12" fill="#0f1320" stroke="#3dd6ff" stroke-width="1.4" stroke-opacity="0.55"/>
+                            <text x="660" y="66" fill="#3dd6ff" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.4">DENSE POINT CLOUD</text>
+                        </g>
+                        <g id="pointcloud" fill="#3dd6ff"><!-- dots injected by JS --></g>
+
+                        <!-- ---- OUTPUT 2: ranked grasps ---- -->
+                        <g class="fade-el" style="transition-delay: 0.75s">
+                            <rect x="644" y="196" width="258" height="140" rx="12" fill="#0f1320" stroke="#ff6a3d" stroke-width="1.4" stroke-opacity="0.6"/>
+                            <text x="660" y="220" fill="#ff6a3d" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.4">RANKED GRASP VECTORS</text>
+                        </g>
+
+                        <!-- gripper jaw pairs, ranked -->
+                        <g id="grasps" font-family="Inter, sans-serif">
+                            <g class="fade-el" style="transition-delay: 0.95s">
+                                <g stroke="#ff6a3d" stroke-width="2.6" fill="none" stroke-linecap="round">
+                                    <path d="M 676 246 L 676 274"/><path d="M 706 246 L 706 274"/><path d="M 676 274 L 706 274"/>
+                                    <path d="M 691 274 L 691 290" stroke-width="2"/>
+                                </g>
+                                <text x="691" y="310" fill="#ffffff" font-size="11.5" font-weight="700" text-anchor="middle">#1</text>
+                            </g>
+                            <g class="fade-el" style="transition-delay: 1.1s">
+                                <g stroke="#ff6a3d" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.72" transform="rotate(22 761 268)">
+                                    <path d="M 746 248 L 746 274"/><path d="M 776 248 L 776 274"/><path d="M 746 274 L 776 274"/>
+                                    <path d="M 761 274 L 761 288" stroke-width="1.9"/>
+                                </g>
+                                <text x="761" y="310" fill="#c9d0e0" font-size="11.5" font-weight="700" text-anchor="middle">#2</text>
+                            </g>
+                            <g class="fade-el" style="transition-delay: 1.25s">
+                                <g stroke="#ff6a3d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.48" transform="rotate(-26 836 268)">
+                                    <path d="M 821 250 L 821 274"/><path d="M 851 250 L 851 274"/><path d="M 821 274 L 851 274"/>
+                                    <path d="M 836 274 L 836 286" stroke-width="1.8"/>
+                                </g>
+                                <text x="836" y="310" fill="#98a0b4" font-size="11.5" font-weight="700" text-anchor="middle">#3</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="content-card">
+                        <i class="fas fa-camera text-2xl accent-text mb-3"></i>
+                        <h3 class="font-sans font-bold text-lg mb-2">Sensor-agnostic</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">The model works from standard 2D cameras, and uses high-end depth hardware when it is present. It never depends on it.</p>
+                    </div>
+                    <div class="content-card">
+                        <i class="fas fa-gem text-2xl accent-text mb-3"></i>
+                        <h3 class="font-sans font-bold text-lg mb-2">Optical interference is a feature</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">Transparent glass and reflective metal are treated as distinct visual signals to reason about, rather than the failure case that halts a line.</p>
+                    </div>
+                    <div class="content-card">
+                        <i class="fas fa-plug text-2xl accent-text mb-3"></i>
+                        <h3 class="font-sans font-bold text-lg mb-2">Retrofits existing arms</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">Decoupling the intelligence from the embodiment means accessible hardware can be upgraded in place, with no environmental re-engineering.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TRAINED IN SIM ============ -->
+        <section id="sim" class="section">
+            <div class="container mx-auto max-w-6xl text-center">
+                <p class="rule-label mb-4">Training</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-6 leading-tight">Trained entirely in simulation.</h2>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-14 leading-relaxed">
+                    Nobody teleoperated anything. Every grasp the model knows, it learned from rendered scenes.
+                </p>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="content-card">
+                        <div class="counter font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums accent-text" data-target="20000">0</div>
+                        <p class="mt-2 text-sm text-gray-400 font-sans tracking-wide">scenes</p>
+                    </div>
+                    <div class="content-card">
+                        <div class="counter font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums accent-text" data-target="30000">0</div>
+                        <p class="mt-2 text-sm text-gray-400 font-sans tracking-wide">distinct objects</p>
+                    </div>
+                    <div class="content-card">
+                        <div class="counter font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums accent-text" data-target="2000000">0</div>
+                        <p class="mt-2 text-sm text-gray-400 font-sans tracking-wide">rendered views</p>
+                    </div>
+                    <div class="content-card !border-orange-500/50">
+                        <div class="font-sans font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight tabular-nums text-white">0</div>
+                        <p class="mt-2 text-sm accent-text font-sans font-semibold tracking-wide">human demonstrations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SEE IT RUN ============ -->
+        <section id="run" class="section">
+            <div class="container mx-auto max-w-7xl">
+                <p class="rule-label mb-4">See it run</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-6 leading-tight">
+                    Five real runs. Two robot arms. <span class="accent-text">The same weights.</span>
+                </h2>
+                <p class="text-lg text-gray-300 max-w-3xl mb-4 leading-relaxed">
+                    No retraining and no re-calibration between them. The left-hand panel in every clip is
+                    <a href="https://rerun.io" target="_blank" rel="noopener" class="accent-text underline decoration-dotted hover:text-white">Rerun</a>,
+                    logging live off the robot while it runs.
+                </p>
+                <p class="text-sm text-gray-500 mb-12"><i class="fas fa-volume-xmark mr-2"></i>Clips are silent and loop. Click any tile to enlarge.</p>
+
+                <div id="demo-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ NUMBERS ============ -->
+        <section id="numbers" class="section">
+            <div class="container mx-auto max-w-6xl">
+                <p class="rule-label mb-4">Performance</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-12 leading-tight">Fast, light, and quick to deploy.</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="content-card text-center py-10">
+                        <i class="fas fa-microchip text-2xl accent-text mb-4"></i>
+                        <div class="font-sans font-extrabold text-4xl md:text-5xl accent-text tracking-tight">&lt; 10 GB</div>
+                        <p class="mt-3 font-sans font-semibold text-white text-lg">VRAM</p>
+                        <p class="mt-1 text-sm text-gray-400">Runs on a single consumer GPU</p>
+                    </div>
+                    <div class="content-card text-center py-10">
+                        <i class="fas fa-bolt text-2xl accent-text mb-4"></i>
+                        <div class="font-sans font-extrabold text-4xl md:text-5xl accent-text tracking-tight">~0.5 s</div>
+                        <p class="mt-3 font-sans font-semibold text-white text-lg">Median inference</p>
+                        <p class="mt-1 text-sm text-gray-400">Scene to ranked grasps</p>
+                    </div>
+                    <div class="content-card text-center py-10">
+                        <i class="fas fa-stopwatch text-2xl accent-text mb-4"></i>
+                        <div class="font-sans font-extrabold text-4xl md:text-5xl accent-text tracking-tight">~10 min</div>
+                        <p class="mt-3 font-sans font-semibold text-white text-lg">To a new scene</p>
+                        <p class="mt-1 text-sm text-gray-400">No retraining, no re-calibration</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ THE FILM ============ -->
+        <section id="film" class="section">
+            <div class="container mx-auto max-w-7xl">
+                <p class="rule-label mb-4">The full film</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-12 leading-tight">
+                    Clearing a real tote with a robot that has never seen the objects.
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                    <div class="lg:col-span-2">
+                        <div class="w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10">
+                            <iframe id="film-embed" class="w-full h-full"
+                                src="https://www.youtube-nocookie.com/embed/_zPEOnGV10g"
+                                title="UniversalPick: clearing a real tote with a robot that has never seen the objects"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <p class="mt-4 text-sm text-gray-500">
+                            5:44 · Captions available on YouTube ·
+                            <a href="https://www.youtube.com/watch?v=_zPEOnGV10g" target="_blank" rel="noopener" class="accent-text hover:text-white underline decoration-dotted">Watch on YouTube</a>
+                        </p>
+                    </div>
+
+                    <div class="content-card lg:col-span-1">
+                        <h3 class="font-sans font-bold text-white mb-4 flex items-center">
+                            <i class="fas fa-list-ol accent-text mr-2"></i>Chapters
+                        </h3>
+                        <div id="chapters" class="space-y-0.5 font-sans text-sm">
+                            <!-- populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ WHAT'S NEXT ============ -->
+        <section id="next" class="section">
+            <div class="container mx-auto max-w-5xl">
+                <p class="rule-label mb-4">Where this is going</p>
+                <h2 class="text-3xl md:text-5xl font-bold font-sans mb-8 leading-tight">
+                    The goal is picking that a small business can actually afford.
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="content-card">
+                        <i class="fas fa-arrows-rotate text-2xl accent-text mb-3"></i>
+                        <h3 class="font-sans font-bold text-lg mb-2">Retrofit, don't rebuild</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Turning accessible arms already on the floor into capable pickers, instead of asking a business to
+                            re-engineer the environment around a rigid cell.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <i class="fas fa-microchip text-2xl accent-text mb-3"></i>
+                        <h3 class="font-sans font-bold text-lg mb-2">Runs at the edge</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Under 10 GB of VRAM means inference happens locally. Imagery is processed on site to guide the arm,
+                            it does not need to leave the floor.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <i class="fas fa-boxes-stacked text-2xl accent-text mb-3"></i>
+                        <h3 class="font-sans font-bold text-lg mb-2">High-mix, low-volume</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            The cases nobody builds a CAD library for: mixed totes, waste sorting, medical packs, where every
+                            bin looks different from the last.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card text-center p-8 md:p-12">
+                    <h3 class="text-2xl md:text-3xl font-bold font-sans mb-4">
+                        If you are working on something like this, I would like to hear about it.
+                    </h3>
+                    <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Whether that is a pilot, a research collaboration, or just a conversation about what does and does not
+                        work in real bins.
+                    </p>
+                    <div class="flex justify-center items-center space-x-6">
+                        <a href="mailto:kieran.saunders707@gmail.com" aria-label="Email" class="text-gray-300 hover:accent-text transition-colors duration-300 text-3xl"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/kieran-saunders-6a5a801a3/" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-gray-300 hover:accent-text transition-colors duration-300 text-3xl"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/kieran514" target="_blank" rel="noopener" aria-label="GitHub" class="text-gray-300 hover:accent-text transition-colors duration-300 text-3xl"><i class="fab fa-github"></i></a>
+                        <a href="https://scholar.google.com/citations?user=Gbr4BMEAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" class="text-gray-300 hover:accent-text transition-colors duration-300 text-3xl"><i class="fas fa-graduation-cap"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CREDITS ============ -->
+        <footer class="section !pb-20">
+            <div class="container mx-auto max-w-4xl">
+                <div class="border-t border-gray-700/60 pt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="rule-label mb-3">Built by</p>
+                        <p class="text-xl font-sans font-bold text-white">Kieran Saunders</p>
+                        <p class="text-gray-400 mt-1">PhD, Computer Science, Aston University</p>
+                        <p class="text-sm text-gray-500 mt-3">BMVC 2024 · ICCV 2023 · ICARSC 2023</p>
+                        <p class="text-sm text-gray-400 mt-4 leading-relaxed">
+                            Simulation training pipeline, grasp model, robot integration and operator UI.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="rule-label mb-3">With thanks to</p>
+                        <p class="text-gray-300 leading-relaxed">
+                            <strong class="text-white">Luis Manso</strong> and <strong class="text-white">Martin Rudorfer</strong>,
+                            who supervised this work through the PhD and the postdoc at Aston University.
+                        </p>
+                        <a href="index.html" class="btn btn-secondary mt-8">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to kieransaunders.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div id="lightbox" class="items-center justify-center p-4 md:p-10" role="dialog" aria-modal="true" aria-label="Enlarged demo clip">
+        <button id="lightbox-close" aria-label="Close" class="absolute top-5 right-6 text-gray-300 hover:text-white text-3xl z-10">
+            <i class="fas fa-xmark"></i>
+        </button>
+        <div class="w-full max-w-5xl" id="lightbox-inner">
+            <video id="lightbox-video" class="w-full rounded-xl shadow-2xl border border-white/10 bg-black" muted loop playsinline controls></video>
+            <h3 id="lightbox-title" class="font-sans font-bold text-xl text-white mt-5"></h3>
+            <p id="lightbox-caption" class="text-gray-300 mt-2 leading-relaxed"></p>
+            <p id="lightbox-note" class="text-sm text-gray-500 mt-3 leading-relaxed"></p>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------------------------------------------------------------
+       DATA
+    --------------------------------------------------------------- */
+    const bottlenecks = [
+        { icon: 'fa-border-all',   label: 'Bottleneck 1', title: 'A rigid safety cell',       body: 'The cage, the guarding and the floor space around the arm, often more expensive than the arm itself.' },
+        { icon: 'fa-cubes',        label: 'Bottleneck 2', title: 'A CAD model of every SKU',  body: 'Every new product has to be modelled before the robot can be trusted to pick it.' },
+        { icon: 'fa-hand-pointer', label: 'Bottleneck 3', title: 'Teleoperated demonstrations', body: 'Hundreds of human-driven demonstrations per task, collected again for every new task.' },
+        { icon: 'fa-wine-glass',   label: 'Bottleneck 4', title: 'Glass and polished metal',  body: 'A depth sensor goes blind the moment it sees a transparent or mirror-finish surface.' }
+    ];
+
+    const demos = [
+        {
+            title: 'A real tote, cleared end to end',
+            src: ['assets/universalpick/tote_pt1.mp4', 'assets/universalpick/tote_pt2.mp4'],
+            hardware: 'PAL Robotics TIAGo Pro',
+            caption: 'Mixed clutter, no CAD models, no prior exposure to any of these objects. Plays as two parts.',
+            note: 'The run was paused between part one and part two. Items pinned flat against the tote wall sit outside the arm’s collision-free approach envelope, so it was stopped, they were re-centred, and it resumed. That is a reach constraint, not a perception one.'
+        },
+        {
+            title: 'A medical tote, unpacked item by item',
+            src: ['assets/universalpick/unpack_medical.mp4'],
+            hardware: 'PAL Robotics TIAGo Pro',
+            caption: 'Trays, packs and instruments, removed one at a time from a densely packed tote.'
+        },
+        {
+            title: 'Polished surgical steel',
+            src: ['assets/universalpick/medical.mp4'],
+            hardware: 'PAL Robotics TIAGo Pro',
+            caption: 'The exact surface that blinds a depth sensor, handled as a visual feature rather than a failure.'
+        },
+        {
+            title: 'Category sorting',
+            src: ['assets/universalpick/sorting.mp4'],
+            hardware: 'PAL Robotics TIAGo Pro',
+            caption: 'Objects separated into class-specific totes, with no conveyor and no fixture.'
+        },
+        {
+            title: 'Same weights, different hardware',
+            src: ['assets/universalpick/kinova.mp4'],
+            hardware: 'Kinova Gen 3',
+            caption: 'A different arm, a different mount and a different camera rig, running the identical model with no retraining.'
+        },
+        {
+            title: 'Driven from a browser',
+            src: ['assets/universalpick/web_ui.mp4'],
+            hardware: 'Operator UI',
+            caption: 'Draw the workspace bounds, set the kill zones, pick a task, watch it run. No code, no ROS.'
+        }
+    ];
+
+    const chapters = [
+        [0,   'The unsolved problem'],
+        [13,  'Act I: What makes picking expensive'],
+        [40,  'Bottleneck 2: a CAD model of every SKU'],
+        [54,  'Bottleneck 3: teleoperated demonstrations'],
+        [68,  'Bottleneck 4: glass and polished metal'],
+        [86,  'Act II: What UniversalPick is'],
+        [108, 'Trained in simulation, no human demos'],
+        [135, 'Act III: A real tote, cleared end to end'],
+        [190, 'Same weights, different hardware'],
+        [238, 'Category sorting'],
+        [261, 'Three workflows, no conveyor required'],
+        [298, 'Act IV: Driving it from a browser'],
+        [322, 'Moving to a new scene, and close']
+    ];
+
+    /* ---------------------------------------------------------------
+       BOTTLENECK CARDS
+    --------------------------------------------------------------- */
+    const bnContainer = document.getElementById('bottlenecks');
+    bottlenecks.forEach((b, i) => {
+        const div = document.createElement('div');
+        div.className = 'bottleneck content-card transition-opacity duration-700';
+        div.style.transitionDelay = (i * 0.12) + 's';
+        div.style.setProperty('--d', (i * 0.14) + 's');
+        div.innerHTML = `
+            <div class="flex items-start justify-between mb-3">
+                <i class="fas ${b.icon} text-2xl accent-text"></i>
+                <span class="stamp font-sans text-[0.62rem] font-extrabold tracking-widest border border-orange-500 accent-text rounded px-1.5 py-0.5">REMOVED</span>
+            </div>
+            <p class="rule-label mb-2">${b.label}</p>
+            <h3 class="font-sans font-bold text-lg text-white mb-2">${b.title}</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">${b.body}</p>`;
+        bnContainer.appendChild(div);
+    });
+
+    /* ---------------------------------------------------------------
+       PIPELINE: point-cloud dots + optional-chip pulse
+    --------------------------------------------------------------- */
+    const pc = document.getElementById('pointcloud');
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    // Deterministic pseudo-random so the cloud looks the same every load.
+    let seed = 20240814;
+    const rand = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+
+    for (let i = 0; i < 90; i++) {
+        // Cluster into a shallow bin-like ellipse inside the point-cloud panel.
+        const t = rand() * Math.PI * 2;
+        const r = Math.sqrt(rand());
+        const cx = 773 + Math.cos(t) * r * 108;
+        const cy = 128 + Math.sin(t) * r * 34 + (rand() - 0.5) * 12;
+        const dot = document.createElementNS(SVG_NS, 'circle');
+        dot.setAttribute('class', 'pc-dot');
+        dot.setAttribute('cx', cx.toFixed(1));
+        dot.setAttribute('cy', cy.toFixed(1));
+        dot.setAttribute('r', (0.9 + rand() * 1.7).toFixed(2));
+        dot.style.animationDelay = (0.75 + rand() * 0.9).toFixed(2) + 's';
+        pc.appendChild(dot);
+    }
+
+    // Cycle the OPTIONAL chips on/off to show the pipeline resolves without them.
+    const chips = Array.from(document.querySelectorAll('#pipeline .opt-chip'));
+    let chipIndex = 0;
+    function pulseChips() {
+        chips.forEach((chip, i) => {
+            const on = i === chipIndex;
+            chip.querySelector('rect').setAttribute('stroke', on ? '#3dd6ff' : '#4a5266');
+            chip.querySelector('rect').setAttribute('fill', on ? 'rgba(61,214,255,0.10)' : '#11151f');
+            chip.querySelector('text').setAttribute('fill', on ? '#3dd6ff' : '#98a0b4');
+        });
+        chipIndex = (chipIndex + 1) % (chips.length + 1); // +1 gives an "all off" beat
+    }
+    if (!reduceMotion) setInterval(pulseChips, 1400);
+
+    /* ---------------------------------------------------------------
+       DEMO GRID
+    --------------------------------------------------------------- */
+    const grid = document.getElementById('demo-grid');
+    demos.forEach((d, i) => {
+        const card = document.createElement('div');
+        card.className = 'demo-tile content-card !p-0 overflow-hidden flex flex-col';
+        card.dataset.index = i;
+        card.innerHTML = `
+            <div class="relative aspect-video overflow-hidden bg-black">
+                <video class="w-full h-full object-cover" muted playsinline preload="none" ${d.src.length === 1 ? 'loop' : ''}>
+                    <source src="${d.src[0]}" type="video/mp4">
+                </video>
+                <span class="demo-badge absolute top-3 left-3 rounded-md px-2 py-1 font-sans text-[0.65rem] font-semibold tracking-wide text-gray-200">${d.hardware}</span>
+                <span class="demo-badge absolute bottom-3 right-3 rounded-md w-8 h-8 flex items-center justify-center text-gray-200 text-xs"><i class="fas fa-expand"></i></span>
+            </div>
+            <div class="p-5 flex-grow">
+                <h3 class="font-sans font-bold text-lg text-white mb-2">${d.title}</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">${d.caption}</p>
+                ${d.note ? `<p class="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-700/60 leading-relaxed"><i class="fas fa-circle-info mr-1.5 accent-text"></i>${d.note}</p>` : ''}
+            </div>`;
+        grid.appendChild(card);
+
+        const video = card.querySelector('video');
+
+        // Multi-part clips: advance to the next source when one ends, then wrap.
+        if (d.src.length > 1) {
+            let part = 0;
+            video.addEventListener('ended', () => {
+                part = (part + 1) % d.src.length;
+                video.src = d.src[part];
+                video.play().catch(() => {});
+            });
+        }
+
+        card.addEventListener('click', () => openLightbox(i));
+    });
+
+    // Only decode the clips that are actually on screen.
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const v = entry.target;
+            if (entry.isIntersecting) {
+                if (v.preload === 'none') v.preload = 'auto';
+                v.play().catch(() => {});
+            } else {
+                v.pause();
+            }
+        });
+    }, { threshold: 0.25 });
+    grid.querySelectorAll('video').forEach(v => videoObserver.observe(v));
+
+    /* ---------------------------------------------------------------
+       LIGHTBOX
+    --------------------------------------------------------------- */
+    const lightbox = document.getElementById('lightbox');
+    const lbVideo = document.getElementById('lightbox-video');
+    const lbTitle = document.getElementById('lightbox-title');
+    const lbCaption = document.getElementById('lightbox-caption');
+    const lbNote = document.getElementById('lightbox-note');
+
+    function openLightbox(i) {
+        const d = demos[i];
+        lbVideo.src = d.src[0];
+        lbVideo.loop = d.src.length === 1;
+        lbTitle.textContent = d.title;
+        lbCaption.textContent = d.hardware + ': ' + d.caption;
+        lbNote.textContent = d.note || '';
+        lbNote.style.display = d.note ? '' : 'none';
+
+        lightbox.classList.add('open');
+        requestAnimationFrame(() => lightbox.classList.add('shown'));
+        document.body.style.overflow = 'hidden';
+        lbVideo.play().catch(() => {});
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('shown');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            lightbox.classList.remove('open');
+            lbVideo.pause();
+            lbVideo.removeAttribute('src');
+            lbVideo.load();
+        }, 250);
+    }
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+        if (!document.getElementById('lightbox-inner').contains(e.target)) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
+    /* ---------------------------------------------------------------
+       CHAPTERS
+    --------------------------------------------------------------- */
+    const chapterBox = document.getElementById('chapters');
+    const filmEmbed = document.getElementById('film-embed');
+    const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+
+    chapters.forEach(([sec, label]) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chapter';
+        btn.innerHTML = `<time class="font-semibold shrink-0">${fmt(sec)}</time><span>${label}</span>`;
+        btn.addEventListener('click', () => {
+            chapterBox.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            filmEmbed.src = `https://www.youtube-nocookie.com/embed/_zPEOnGV10g?start=${sec}&autoplay=1`;
+        });
+        chapterBox.appendChild(btn);
+    });
+
+    /* ---------------------------------------------------------------
+       COUNTERS
+    --------------------------------------------------------------- */
+    function runCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        if (reduceMotion) { el.textContent = target.toLocaleString(); return; }
+        const duration = 1600;
+        const start = performance.now();
+        function step(now) {
+            const p = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased).toLocaleString();
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    /* ---------------------------------------------------------------
+       SCROLL REVEAL + NAV
+    --------------------------------------------------------------- */
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href') || '';
+                link.classList.toggle('active', href.startsWith('#') && href.slice(1) === id);
+            });
+
+            // Section-specific one-shot animations.
+            if (entry.target.id === 'problem') {
+                setTimeout(() => entry.target.classList.add('strikeout'), 900);
+            }
+            if (entry.target.id === 'sim') {
+                entry.target.querySelectorAll('.counter').forEach(runCounter);
+            }
+        });
+    }, { rootMargin: '0px 0px -20% 0px' });
+
+    document.querySelectorAll('.section').forEach(s => sectionObserver.observe(s));
+
+    // Header blur on scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('bg-black/50', window.scrollY > 50);
+        header.classList.toggle('backdrop-blur-sm', window.scrollY > 50);
+        header.classList.toggle('shadow-lg', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobile-menu');
+    document.getElementById('mobile-menu-button').addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+    document.getElementById('close-menu-button').addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    document.querySelectorAll('.nav-link-mobile').forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+});
+</script>
+</body>
+</html>
